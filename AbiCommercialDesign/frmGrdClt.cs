@@ -12,9 +12,9 @@ namespace Abi
 {
     public partial class frmGrdClt : Form
     {
-        frmClt frmFicheClient; //attribut de Class
+        private frmClt frmFicheClient; //attribut de Class
         private Int32 idClient;
-        private Client ClientActif;
+        private Client client;
 
         /// <summary>
         /// Constructeur de la fenetre liste Client et ajout de 6 Clients
@@ -22,21 +22,13 @@ namespace Abi
         public frmGrdClt()
         {
             //BEGIN  - JEU DE TEST: Création de 5 Clients virtuels comme jeux de test a l'ouverture du Form
-            List<Contact> lc;
+            //List<Contact> lc;
             for (int i = 0; i < 5; i++)
             {
-                lc = new List<Contact>();
-                Donnees.ListeFicheClient.Add(new Client(i, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString(), lc));
+                //lc = new List<Contact>();
+                Donnees.ListeFicheClient.Add(new Client(Donnees.nbrClient++, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
-            for (int i = 0; i < 4; i++)
-            {
-                Contact c;
-                for (int j = 0; j < 5; j++)
-                {
-                    c = new Contact(Donnees.ListeFicheClient[i].IdClient, Donnees.ListeFicheClient[i].ListContacts.Count, "entreprise" + i.ToString() + "ET" + j.ToString(), "nom" + i.ToString() + "ET" + j.ToString(), "prenom" + i.ToString() + "ET" + j.ToString(), "fonction" + i.ToString() + "ET" + j.ToString(), "060606" + i.ToString(), "projet" + i.ToString(), "activite" + i.ToString());
-                    Donnees.ListeFicheClient[i].ListContacts.Add(c);
-                }
-            }
+       
             //END - JEU DE TEST
 
 
@@ -94,10 +86,10 @@ namespace Abi
                 {
                     if (c.IdClient == idClient)
                     {
-                        ClientActif = c;
+                        client = c;
                     }
                 }
-                Donnees.ListeFicheClient.Remove(ClientActif);
+                Donnees.ListeFicheClient.Remove(client);
                 this.controlesVisuels();
                 this.afficheClients();
             }
@@ -118,12 +110,12 @@ namespace Abi
             {
                 if (c.IdClient == idClient)
                 {
-                    ClientActif = c;
+                    client = c;
                 }
             }
 
 
-            frmClt frmClient = new frmClt(ClientActif);
+            frmClt frmClient = new frmClt(client, false);
             if (frmClient.ShowDialog() == DialogResult.OK)
             {
                 this.controlesVisuels();

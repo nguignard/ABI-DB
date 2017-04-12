@@ -12,13 +12,13 @@ namespace Abi
 {
     public partial class frmGrdContact : Form
     {
-        int idContact;
-        Client leClient;
-        Contact leContact;
+        private int idContact;
+        private Client client;
+        private Contact contact;
 
-        public frmGrdContact(Client fc)
+        public frmGrdContact(Client client)
         {
-            leClient = fc;
+            this.client = client;
 
             InitializeComponent();
             controlesVisuels();
@@ -36,13 +36,26 @@ namespace Abi
         /// <param name="e"></param>
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            frmContact frmNewContact = new frmContact(leClient);
-
-            if (frmNewContact.ShowDialog() == DialogResult.OK)
+            contact = new Abi.Contact(client.NbrContact++);
+            frmContact frmNewContact = new frmContact(ref contact, true);
+            DialogResult result = frmNewContact.ShowDialog();
+            if (result == DialogResult.OK || result == DialogResult.Yes)
             {
-                controlesVisuels();// réaffiche la liste des Clients
-                afficheContacts();
+                if (result == DialogResult.Yes)
+                {
+                    client.ListContacts.Remove(contact);
+                }
+
+                if (result == DialogResult.OK)
+                {
+                    client.ListContacts.Add(contact);
+                }
+
+                this.controlesVisuels();
+                this.afficheContacts();
+
             }
+
         }
 
         /// <summary>
@@ -71,14 +84,17 @@ namespace Abi
                 {
                     idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
                 }
-                foreach (Contact c in leClient.ListContacts)
+                foreach (Contact c in client.ListContacts)
                 {
                     if (c.IdContact == idContact)
                     {
-                        leContact = c;
+                        contact = c;
                     }
                 }
-                leClient.ListContacts.Remove(leContact);
+                if (contact != null)
+                {
+                    client.ListContacts.Remove(contact);
+                }
                 this.controlesVisuels();
                 this.afficheContacts();
             }
@@ -90,32 +106,6 @@ namespace Abi
         /// <param name="sender"></param>
         /// <param name="e"></param>
        
-
-        private void grdContact_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (grdContact.CurrentRow != null)
-            {
-                idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
-            }
-            foreach (Contact c in leClient.ListContacts)
-            {
-                if (c.IdContact == idContact)
-                {
-                    leContact = c;
-                }
-            }
-
-
-            frmContact frmContact = new frmContact(this.leClient, this.leContact);
-            if (frmContact.ShowDialog() == DialogResult.OK)
-            {
-                this.controlesVisuels();
-                this.afficheContacts();
-            }
-
-        
-
-    }
         /// <summary>
         /// Réaffiche la liste complete des Clients
         /// </summary>
@@ -125,19 +115,6 @@ namespace Abi
         {
             this.txtCltDspNomRecherche.Text = null;
             afficheContacts();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void grdCltDsp_SelectionChanged(object sender, EventArgs e)
-        {
-            if (grdContact.CurrentRow != null)
-            {
-                idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
-            }
         }
         /// <summary>
         /// Quand on ecrit dans le txtbox Recherche, commence un tri actif
@@ -180,7 +157,7 @@ namespace Abi
             this.txtCltDspNomRecherche.ReadOnly = false;
 
             //si il n'y a pas encore de Client, Rechercher, supprimer et tous ne sont pas visible
-            if (leClient.ListContacts.Count == 0)
+            if (client.ListContacts.Count == 0)
             {
                 this.btnAjouter.Enabled = true;
                 this.btnCltDspQuitter.Enabled = true;
@@ -212,14 +189,14 @@ namespace Abi
             dt.Columns.Add(new DataColumn("Entreprise", typeof(string)));
             dt.Columns.Add(new DataColumn("Téléphone", typeof(String)));
 
-            for (int i = 0; i < leClient.ListContacts.Count; i++)
+            for (int i = 0; i < client.ListContacts.Count; i++)
             {
                 dr = dt.NewRow();
-                dr[0] = leClient.ListContacts[i].IdClient;
-                dr[1] = leClient.ListContacts[i].Nom;
-                dr[2] = leClient.ListContacts[i].Prenom;
-                dr[3] = leClient.ListContacts[i].Entreprise;
-                dr[4] = leClient.ListContacts[i].Telephone;
+                dr[0] = client.ListContacts[i].IdContact;
+                dr[1] = client.ListContacts[i].Nom;
+                dr[2] = client.ListContacts[i].Prenom;
+                dr[3] = client.ListContacts[i].Entreprise;
+                dr[4] = client.ListContacts[i].Telephone;
                 dt.Rows.Add(dr);
             }
 
@@ -231,5 +208,45 @@ namespace Abi
 
         }
 
+        private void grdContact_DoubleClick(object sender, EventArgs e)
+        {
+            if (grdContact.CurrentRow != null)
+            {
+                idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
+                Console.WriteLine("id : " + idContact);
+            }
+            foreach (Contact c in client.ListContacts)
+            {
+                if (c.IdContact == idContact)
+                {
+                    contact = c;
+                }
+            }
+
+
+            frmContact frmContact = new frmContact(ref contact, false);
+            DialogResult result = frmContact.ShowDialog();
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                if (result == DialogResult.Yes)
+                {
+                    client.ListContacts.Remove(contact);
+                }
+                this.controlesVisuels();
+                this.afficheContacts();
+                
+            }
+            
+        }
+
+        private void btnRech_Click(object sender, EventArgs e)
+        {
+            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
+        }
+
+        private void txtCltDspNomRecherche_KeyUp_1(object sender, KeyEventArgs e)
+        {
+            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
+        }
     }
 }

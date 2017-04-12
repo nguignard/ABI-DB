@@ -35,6 +35,7 @@
             this.btnCltDspTous = new System.Windows.Forms.Button();
             this.txtCltDspNomRecherche = new System.Windows.Forms.TextBox();
             this.lblCltDspNomRecherche = new System.Windows.Forms.Label();
+            this.btnRech = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdContact)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +51,6 @@
             // 
             // btnCltDspSupprimer
             // 
-            this.btnCltDspSupprimer.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCltDspSupprimer.Location = new System.Drawing.Point(451, 368);
             this.btnCltDspSupprimer.Name = "btnCltDspSupprimer";
             this.btnCltDspSupprimer.Size = new System.Drawing.Size(75, 23);
@@ -76,32 +76,34 @@
             this.grdContact.AllowUserToOrderColumns = true;
             this.grdContact.AllowUserToResizeColumns = false;
             this.grdContact.AllowUserToResizeRows = false;
+            this.grdContact.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdContact.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdContact.Location = new System.Drawing.Point(14, 83);
             this.grdContact.MultiSelect = false;
             this.grdContact.Name = "grdContact";
             this.grdContact.ReadOnly = true;
             this.grdContact.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdContact.Size = new System.Drawing.Size(593, 268);
+            this.grdContact.Size = new System.Drawing.Size(636, 268);
             this.grdContact.TabIndex = 12;
-            this.grdContact.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContact_CellDoubleClick);
+            this.grdContact.DoubleClick += new System.EventHandler(this.grdContact_DoubleClick);
             // 
             // btnCltDspTous
             // 
-            this.btnCltDspTous.Location = new System.Drawing.Point(451, 40);
+            this.btnCltDspTous.Location = new System.Drawing.Point(518, 40);
             this.btnCltDspTous.Name = "btnCltDspTous";
-            this.btnCltDspTous.Size = new System.Drawing.Size(156, 23);
+            this.btnCltDspTous.Size = new System.Drawing.Size(75, 23);
             this.btnCltDspTous.TabIndex = 10;
-            this.btnCltDspTous.Text = "&Tous Réafficher";
+            this.btnCltDspTous.Text = "&Réinitialiser";
             this.btnCltDspTous.UseVisualStyleBackColor = true;
             this.btnCltDspTous.Click += new System.EventHandler(this.btnCltDspTous_Click);
             // 
             // txtCltDspNomRecherche
             // 
-            this.txtCltDspNomRecherche.Location = new System.Drawing.Point(114, 42);
+            this.txtCltDspNomRecherche.Location = new System.Drawing.Point(114, 41);
             this.txtCltDspNomRecherche.Name = "txtCltDspNomRecherche";
             this.txtCltDspNomRecherche.Size = new System.Drawing.Size(317, 20);
             this.txtCltDspNomRecherche.TabIndex = 9;
+            this.txtCltDspNomRecherche.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCltDspNomRecherche_KeyUp_1);
             // 
             // lblCltDspNomRecherche
             // 
@@ -112,11 +114,22 @@
             this.lblCltDspNomRecherche.TabIndex = 8;
             this.lblCltDspNomRecherche.Text = "&Nom Recherché : ";
             // 
+            // btnRech
+            // 
+            this.btnRech.Location = new System.Drawing.Point(437, 40);
+            this.btnRech.Name = "btnRech";
+            this.btnRech.Size = new System.Drawing.Size(75, 23);
+            this.btnRech.TabIndex = 16;
+            this.btnRech.Text = "Rechercher";
+            this.btnRech.UseVisualStyleBackColor = true;
+            this.btnRech.Click += new System.EventHandler(this.btnRech_Click);
+            // 
             // frmGrdContact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 430);
+            this.ClientSize = new System.Drawing.Size(662, 430);
+            this.Controls.Add(this.btnRech);
             this.Controls.Add(this.btnCltDspQuitter);
             this.Controls.Add(this.btnCltDspSupprimer);
             this.Controls.Add(this.btnAjouter);
@@ -141,5 +154,6 @@
         protected System.Windows.Forms.Button btnCltDspTous;
         protected System.Windows.Forms.TextBox txtCltDspNomRecherche;
         protected System.Windows.Forms.Label lblCltDspNomRecherche;
+        protected System.Windows.Forms.Button btnRech;
     }
 }

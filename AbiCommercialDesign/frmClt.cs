@@ -15,11 +15,11 @@ namespace Abi
     /// </summary>
     public partial class frmClt : Form
     {
-        private Client leClient; // attribut de classe
-        private bool IsNewClient;// vrai si le client est nouveau, permet d'ajouter un nouveau client a la liste dans donnees,
-                                 //ou de remplacer le Client actuel à modifier
-        private Client clientVide = new Client(0, 0, 0, "", "", "", "", "00000", "", "", "", "", new List<Contact>());
-      
+        private Client client; // attribut de classe
+        private Boolean isNewClient;// vrai si le client est nouveau, permet d'ajouter un nouveau client a la liste dans donnees,
+                                    //ou de remplacer le Client actuel à modifier
+                                    //private Client clientVide = new Client(0, 0, 0, "", "", "", "", "00000", "", "", "", "");
+
 
 
         //BEGIN - CONSTRUCTEURS DE CLASSE
@@ -29,12 +29,11 @@ namespace Abi
         /// </summary>
         public frmClt()
         {
-            this.IsNewClient = true;
-            this.leClient = clientVide;
-            this.leClient.IdClient = Donnees.ListeFicheClient.Count+1;
 
-            afficheLeClient(this.leClient);
+
+
             InitializeComponent();
+            this.isNewClient = true;
             controlesVisuels(); //met en place les contrôles visuels
         }
 
@@ -42,14 +41,15 @@ namespace Abi
         /// Constructeur pour un Client Existant
         /// </summary>
         /// <param name="unClient">unClient est de classe ficheClient est est envoye comme paramettre par double clic de la fenetre frmGrdClt </param>
-        public frmClt(Client unClient)
+        public frmClt(Client client, Boolean isNewClient)
         {
-            IsNewClient = false;
-            this.leClient = unClient;
+            
 
             InitializeComponent();
+            this.isNewClient = isNewClient;
+            this.client = client;
             controlesVisuels();
-            afficheLeClient(this.leClient);//fonction permettant d'afficher le Client
+            afficheLeClient(client);//fonction permettant d'afficher le Client
         }
         //END - CONSTRUCTEUR DE CLASSE
 
@@ -77,8 +77,8 @@ namespace Abi
             rep = MessageBox.Show("Voulez vous vraiment supprimer?", "suppression", MessageBoxButtons.OKCancel);
             if (rep == DialogResult.OK)
             {
-                if (!IsNewClient)
-                    Donnees.ListeFicheClient.Remove(this.leClient);
+                if (!isNewClient)
+                    Donnees.ListeFicheClient.Remove(this.client);
             }
             this.DialogResult = DialogResult.OK;
         }
@@ -90,10 +90,8 @@ namespace Abi
         /// <param name="e"></param>
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
-            if (IsNewClient)
-                this.afficheLeClient(clientVide);
-            else
-                this.afficheLeClient(leClient);
+            
+                //this.afficheLeClient(client);
 
             //this.DialogResult = DialogResult.Cancel;
         }
@@ -108,20 +106,19 @@ namespace Abi
         /// <param name="e"></param>
         private void btnValider_Click(object sender, EventArgs e)
         {
-            this.reccordClient();
+            this.saveClient();
             this.DialogResult = DialogResult.OK; //ferme la fenetre modale
         }
 
 
         private void btnContacts_Click(object sender, EventArgs e)
         {
-            Donnees.idClientActif = this.leClient.IdClient;
-            this.reccordClient();
+            this.saveClient();
 
-            frmGrdContact frmModifContact = new frmGrdContact(this.leClient);
+            frmGrdContact frmModifContact = new frmGrdContact(this.client);
             if (frmModifContact.ShowDialog() == DialogResult.OK)
             {
-                this.afficheLeClient(this.leClient);
+                this.afficheLeClient(this.client);
             }
         }
 
@@ -190,73 +187,92 @@ namespace Abi
         /// Affiche le Client en cours de modification
         /// </summary>
         private void afficheLeClient(Client c)
+
         {
-            this.txtIdClient.Text = c.IdClient.ToString();
-            this.txtRaisonSociale.Text = c.RaisonSociale.ToString();
-
-            this.txtAdresse.Text = c.Adresse.ToString();
-            this.txtCP.Text = c.CP.ToString();
-            this.txtVille.Text = c.Ville.ToString();
-
-
-            //Gestion des radioboutons
-            this.rdbAncienne.Checked = true;
-            if (c.TypeSociete == "Principal")
+            if (c != null)
             {
-                this.rdbPrincipal.Checked = true;
-            }
-            else
-            {
-                if (c.TypeSociete == "Secondaire")
+                this.txtIdClient.Text = c.IdClient.ToString();
+                this.txtRaisonSociale.Text = c.RaisonSociale.ToString();
+
+                this.txtAdresse.Text = c.Adresse.ToString();
+                this.txtCP.Text = c.CP.ToString();
+                this.txtVille.Text = c.Ville.ToString();
+
+                //Gestion des radioboutons
+                this.rdbAncienne.Checked = true;
+                if (c.TypeSociete == "Principal")
                 {
-                    this.rdbSecondaire.Checked = true;
+                    this.rdbPrincipal.Checked = true;
                 }
-            }
-            this.rdbTypeClientPublic.Checked = true;
-            if (c.Nature == "Privé") this.rdbTypeClientPrive.Checked = true;
+                else
+                {
+                    if (c.TypeSociete == "Secondaire")
+                    {
+                        this.rdbSecondaire.Checked = true;
+                    }
+                }
+                this.rdbTypeClientPublic.Checked = true;
+                if (c.Nature == "Privé") this.rdbTypeClientPrive.Checked = true;
 
-            this.cbxActivite.SelectedItem = c.Activite.ToString();
-            this.txtTelephone.Text = c.Telephone.ToString();
-            this.txtCA.Text = c.CA.ToString();
-            this.txtEffectif.Text = c.Effectif.ToString();
-            this.txtCommentComm.Text = c.CommentComm.ToString();
+                this.cbxActivite.SelectedItem = c.Activite.ToString();
+                this.txtTelephone.Text = c.Telephone.ToString();
+                this.txtCA.Text = c.CA.ToString();
+                this.txtEffectif.Text = c.Effectif.ToString();
+                this.txtCommentComm.Text = c.CommentComm.ToString();
+            }
         }
 
-        private void reccordClient()
+        private void saveClient()
         {
             // tente de rentrer ou modifier un nouveau Client, sinon renvoie une exception (venant des accesseurs)
             try
             {
-                this.leClient.RaisonSociale = this.txtRaisonSociale.Text.Trim(); //trim enleve les espaces avant et apres la chaine
-                this.leClient.Activite = this.cbxActivite.SelectedItem.ToString().Trim();
-                this.leClient.Adresse = this.txtAdresse.Text.Trim();
-                this.leClient.Ville = this.txtVille.Text.Trim().ToUpper();//ToUpper met en majuscule
-                this.leClient.CP = this.txtCP.Text.Trim();
-                this.leClient.Telephone = this.txtTelephone.Text.Trim();
-                this.leClient.CA = decimal.Parse(this.txtCA.Text.Trim());
-                this.leClient.Effectif = Int32.Parse(this.txtEffectif.Text.Trim());
-                this.leClient.CommentComm = this.txtCommentComm.Text.Trim();
-                this.leClient.Nature = grpStringValue(grpNature);//grpStringValue renvoie le string lie au rdb Actif du grpBox
-                this.leClient.TypeSociete = grpStringValue(grpTypeSociete);
+                
 
                 //Création ou modification du Client
-                if (IsNewClient)
+                if (isNewClient)
                 {
-                    Donnees.ListeFicheClient.Add(leClient); //Ajoute le nouveau Client à la liste statique dans données
+                    client = new Client(Donnees.nbrClient++);
+                    getClient();
+
+                    Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la liste statique dans données
                 }
                 else
                 {
-                    Donnees.ListeFicheClient.Remove(this.leClient);//remplace le Client par le Client modifié
-                    Donnees.ListeFicheClient.Insert(this.leClient.IdClient, this.leClient);
+                    getClient();
+                    for(Int32 i= 0; i<Donnees.ListeFicheClient.Count; i++)
+                    {
+                        if(Donnees.ListeFicheClient[i].IdClient == client.IdClient)
+                        {
+                            Donnees.ListeFicheClient[i] = client;
+                        }
+                    }
+
+         
                 }
 
             }
             catch (Exception ex)
             {
-                if (IsNewClient)
-                    leClient = null;// annule la création si l'essai n'est pas concluant
+                if (isNewClient)
+                    client = null;// annule la création si l'essai n'est pas concluant
                 MessageBox.Show(ex.Message); // renvoie le message d'exception
             }
+        }
+        
+        private void getClient()
+        {
+            this.client.RaisonSociale = this.txtRaisonSociale.Text.Trim(); //trim enleve les espaces avant et apres la chaine
+            this.client.Activite = this.cbxActivite.SelectedItem.ToString().Trim();
+            this.client.Adresse = this.txtAdresse.Text.Trim();
+            this.client.Ville = this.txtVille.Text.Trim().ToUpper();//ToUpper met en majuscule
+            this.client.CP = this.txtCP.Text.Trim();
+            this.client.Telephone = this.txtTelephone.Text.Trim();
+            this.client.CA = decimal.Parse(this.txtCA.Text.Trim());
+            this.client.Effectif = Int32.Parse(this.txtEffectif.Text.Trim());
+            this.client.CommentComm = this.txtCommentComm.Text.Trim();
+            this.client.Nature = grpStringValue(grpNature);//grpStringValue renvoie le string lie au rdb Actif du grpBox
+            this.client.TypeSociete = grpStringValue(grpTypeSociete);
         }
 
     }

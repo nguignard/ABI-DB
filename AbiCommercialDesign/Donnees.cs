@@ -13,13 +13,8 @@ namespace Abi
     {
         //Collection liste des Clients de la Société, static pour être accessible sans instanciation par toutes les autres classes
         public static List<Client> ListeFicheClient = new List<Client>();
-        public static int idClientActif;
+        public static Int32 nbrClient = 0;
 
-        /// <summary>
-        /// Constructeur de la classe
-        /// </summary>
-        Donnees()
-        {
-        }
+
     }
 }

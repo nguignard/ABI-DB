@@ -34,9 +34,11 @@ namespace Abi
 
         }
 
-        public Contact()
+        public Contact(int idContact)
         {
+            this.idContact = idContact;
         }
+
 
 
         public string Entreprise
