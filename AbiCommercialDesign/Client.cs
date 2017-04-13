@@ -24,7 +24,8 @@ namespace Abi
         private string activite;
         private string telephone;
         private string commentComm;
-        private List<Contact> listContacts =new List<Contact>();
+        private List<Contact> listContacts;
+        private Int32 nbrContact = 0;
         // END ATTRIBUT
 
 
@@ -52,12 +53,12 @@ namespace Abi
         /// <summary>
         /// Constructeur demandant aucun attribut
         /// </summary>
-        public Client()
+        public Client(int idClient)
         {
-          
+            this.idClient = idClient;
         }
 
-        public Client(int idClient, int effectif, decimal ca, string raisonSociale, string typeSociete, string nature, string adresse, string cp, string ville, string activite, string telephone, string commentComm, List<Contact> listContacts)
+        public Client(int idClient, int effectif, decimal ca, string raisonSociale, string typeSociete, string nature, string adresse, string cp, string ville, string activite, string telephone, string commentComm)
         {
             this.IdClient = idClient;
             this.Effectif = effectif;
@@ -71,7 +72,7 @@ namespace Abi
             this.Activite = activite;
             this.Telephone = telephone;
             this.CommentComm = commentComm;
-            this.ListContacts = listContacts;
+            this.ListContacts = new List<Contact>();
         }
 
         //END CONSTRUCTEURS
@@ -285,6 +286,19 @@ namespace Abi
             set
             {
                 listContacts = value;
+            }
+        }
+
+        public int NbrContact
+        {
+            get
+            {
+                return nbrContact;
+            }
+
+            set
+            {
+                nbrContact = value;
             }
         }
 

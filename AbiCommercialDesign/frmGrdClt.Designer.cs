@@ -72,6 +72,7 @@
             this.grdCltDsp.AllowUserToOrderColumns = true;
             this.grdCltDsp.AllowUserToResizeColumns = false;
             this.grdCltDsp.AllowUserToResizeRows = false;
+            this.grdCltDsp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdCltDsp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdCltDsp.Location = new System.Drawing.Point(13, 51);
             this.grdCltDsp.MultiSelect = false;
