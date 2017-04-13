@@ -96,7 +96,6 @@
             // 
             // btnAnnuler
             // 
-            this.btnAnnuler.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.btnAnnuler.Location = new System.Drawing.Point(315, 351);
             this.btnAnnuler.Name = "btnAnnuler";
             this.btnAnnuler.Size = new System.Drawing.Size(75, 23);
@@ -361,7 +360,6 @@
             this.AcceptButton = this.btnValider;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnAnnuler;
             this.ClientSize = new System.Drawing.Size(666, 386);
             this.Controls.Add(this.txtCP);
             this.Controls.Add(this.lblCP);

@@ -30,17 +30,15 @@ namespace Abi
         {
             InitializeComponent();
             this.isNewClient = true;
-            controlesVisuels(); //met en place les contrôles visuels
+            controlesVisuels(); //met en place les contrôles visuels ( enables button)
         }
 
         /// <summary>
-        /// Constructeur pour un Client Existant
+        /// Constructeur pour un Nouveau Client ou un Client à modifier
         /// </summary>
-        /// <param name="unClient">unClient est de classe ficheClient est est envoye comme paramettre par double clic de la fenetre frmGrdClt </param>
+        /// <param name="client">client est de classe Client, et est envoye comme paramettre par double clic de la fenetre frmGrdClt </param>
         public frmClt(Client client, Boolean isNewClient)
         {
-            
-
             InitializeComponent();
             this.isNewClient = isNewClient;
             this.client = client;
@@ -53,7 +51,7 @@ namespace Abi
         //BEGIN - EVENEMENT LIES AUX BOUTONS
 
         /// <summary>
-        /// bouton fermer: ferme la boite de dialogue et retourne a la recherche de Client (modal)
+        /// btnFermer_Click: ferme la boite de dialogue et retourne a la recherche de Client (modal)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -63,7 +61,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// Supprime le contacte de la liste des Clients si ce n'est pas un nouveau Client
+        /// btnSupprimer_Click: Supprime le contacte de la liste des Clients si ce n'est pas un nouveau Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,15 +78,13 @@ namespace Abi
         }
 
         /// <summary>
-        /// Bouton annuler: remet a vide les cases ou  annule les modifications faites sur le Client actuel
+        /// btnAnnuler_Click: remet a vide les cases ou  annule les modifications faites sur le Client actuel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
-            
-                //this.afficheLeClient(client);
-
+             this.afficheLeClient(this.client);
             //this.DialogResult = DialogResult.Cancel;
         }
 
