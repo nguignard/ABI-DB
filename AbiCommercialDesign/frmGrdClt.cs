@@ -55,7 +55,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// bouton fermer: Ferme le Form de recherche de Client retourne à frmMDI
+        /// btnCltDspQuitter_Click: Ferme le Form de recherche de Client retourne à frmMDI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -66,7 +66,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// Boutton supprimer , supprime le Client selectionne
+        /// Boutton supprimer , supprime le Client selectionne, apres confirmation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -76,6 +76,8 @@ namespace Abi
             rep = MessageBox.Show("Voulez vous vraiment supprimer?", "suppression", MessageBoxButtons.OKCancel);
             if (rep == DialogResult.OK)
             {
+
+                //Recherche du Client à supprimer
                 if (grdCltDsp.CurrentRow != null)
                 {
                     idClient = (Int32)grdCltDsp.CurrentRow.Cells[0].Value;
@@ -94,12 +96,13 @@ namespace Abi
         }
 
         /// <summary>
-        /// Doubvle Clic sur le Grid : ouvre le Client Sellectionnne
+        /// grdCltDsp_DoubleClick: Doubvle Clic sur le Grid : ouvre le Client Selectionnne 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void grdCltDsp_DoubleClick(object sender, EventArgs e)
         {
+            //Recherche du Client à Modifier
             if (grdCltDsp.CurrentRow != null)
             {
                 idClient = (Int32)grdCltDsp.CurrentRow.Cells[0].Value;
@@ -122,7 +125,7 @@ namespace Abi
 
         }
         /// <summary>
-        /// Réaffiche la liste complete des Clients
+        /// btnCltDspTous_Click: Réaffiche la liste complete des Clients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -133,7 +136,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// Conserve l'idClient à chaque changement de selection, est utilisé pour s'assurer la bonne selection d'unClient
+        /// grdCltDsp_SelectionChanged : enregistre l'idClient à chaque changement de selection, est utilisé pour s'assurer la bonne selection d'unClient
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -145,7 +148,7 @@ namespace Abi
             }
         }
         /// <summary>
-        /// Quand on ecrit dans le txtbox Recherche, commence un tri actif
+        /// txtCltDspNomRecherche_KeyUp: Quand on ecrit dans le txtbox Recherche, commence un tri actif
         /// /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -161,7 +164,7 @@ namespace Abi
         // BEGIN - FONCTIONS D'AFFICHAGE////////////////////////////////////////////////////////////:
 
         /// <summary>
-        /// Permets de rendre accessible les bons boutons version non optimisee mais plus secur
+        /// Methode controlesVisuels Permets de rendre accessible les bons boutons version non optimisee mais plus secur
         /// </summary>
         private void controlesVisuels()
         {
@@ -192,7 +195,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// Prépare l'affichage et Affiche les Clients dans le dataGrid 
+        /// Methode afficheClients:  Prépare l'affichage et Affiche les Clients dans le dataGrid 
         /// </summary>
         private void afficheClients()
         {
@@ -221,7 +224,6 @@ namespace Abi
 
             dt = null;
             dr = null;
-
         }
 
     }
