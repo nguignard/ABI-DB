@@ -21,7 +21,6 @@ namespace Abi
                                     //private Client clientVide = new Client(0, 0, 0, "", "", "", "", "00000", "", "", "", "");
 
 
-
         //BEGIN - CONSTRUCTEURS DE CLASSE
 
         /// <summary>
@@ -29,9 +28,6 @@ namespace Abi
         /// </summary>
         public frmClt()
         {
-
-
-
             InitializeComponent();
             this.isNewClient = true;
             controlesVisuels(); //met en place les contrôles visuels

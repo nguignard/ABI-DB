@@ -17,7 +17,7 @@ namespace Abi
         private Client client;
 
         /// <summary>
-        /// Constructeur de la fenetre liste Client et ajout de 6 Clients
+        /// Constructeur de la fenetre liste Client et ajout de 5 Clients pour test
         /// </summary>
         public frmGrdClt()
         {
@@ -28,9 +28,7 @@ namespace Abi
                 //lc = new List<Contact>();
                 Donnees.ListeFicheClient.Add(new Client(Donnees.nbrClient++, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
-       
             //END - JEU DE TEST
-
 
             //INITIALISATION DES COMPOSANTS ET AFFICHAGES DES CLIENTS
             InitializeComponent();
@@ -41,7 +39,7 @@ namespace Abi
 
         //BEGIN - GESTION DES BOUTONS/////////////////////////////////////::
         /// <summary>
-        /// Affiche un client individuel vide pour ajout
+        /// btnAjouter_Click : Affiche un client individuel vide pour ajout
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
