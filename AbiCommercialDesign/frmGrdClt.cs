@@ -42,11 +42,16 @@ namespace Abi
 
             //INITIALISATION DES COMPOSANTS ET AFFICHAGES DES CLIENTS
             InitializeComponent();
+            Donnees.ToDB();
             controlesVisuels();
             afficheClients();
         }
 
         //END - CONSTRUCTEURS
+
+            
+
+
 
         //BEGIN - GESTION DES EVENEMENTS/////////////////////////////////////::
         /// <summary>
