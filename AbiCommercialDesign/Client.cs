@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Abi
 {
     /// <summary>
-    /// FicheClient est la Classe définnissant ce qu'est un Client de l'entreprise
+    /// FicheClient est la Classe metier Visual studio définnissant ce qu'est un Client de l'entreprise
     /// </summary>
     public class Client
     {
@@ -24,7 +24,7 @@ namespace Abi
         private string activite;
         private string telephone;
         private string commentComm;
-        private List<Contact> listContacts;
+        private List<Contact> listContacts; //Contain the different Contacts of the Client
         private Int32 nbrContact = 0;
         // END ATTRIBUT
 
@@ -48,16 +48,31 @@ namespace Abi
         /// <param name="ca"></param>
         /// <param name="effectif"></param>
         /// <param name="commentComm"></param>
-       
+
 
         /// <summary>
-        /// Constructeur demandant aucun attribut
+        /// Constructeur Client : Create an instance of Client based on the Client id
         /// </summary>
         public Client(int idClient)
         {
             this.idClient = idClient;
         }
 
+        /// <summary>
+        /// Client: Constructeur with all parameters
+        /// </summary>
+        /// <param name="idClient"></param>
+        /// <param name="effectif"></param>
+        /// <param name="ca"></param>
+        /// <param name="raisonSociale"></param>
+        /// <param name="typeSociete"></param>
+        /// <param name="nature"></param>
+        /// <param name="adresse"></param>
+        /// <param name="cp"></param>
+        /// <param name="ville"></param>
+        /// <param name="activite"></param>
+        /// <param name="telephone"></param>
+        /// <param name="commentComm"></param>
         public Client(int idClient, int effectif, decimal ca, string raisonSociale, string typeSociete, string nature, string adresse, string cp, string ville, string activite, string telephone, string commentComm)
         {
             this.IdClient = idClient;
@@ -79,9 +94,6 @@ namespace Abi
 
 
         //  DEBUT ACCESSEURS
-
-
-
         /// <summary>
         /// Accesseur IdClient, controle egalement qu'on entre bien un entier, ou renvoie une exception
         /// </summary>
@@ -92,7 +104,6 @@ namespace Abi
                 return idClient;
             }
             set { idClient= value; }
-
         }
 
         /// <summary>
@@ -107,7 +118,7 @@ namespace Abi
 
             set
             {
-                raisonSociale = value.Trim().ToUpper();
+                raisonSociale = value.Trim().ToUpper(); //Put away spaces before and after the string and 'met en majuscule'
             }
         }
 
@@ -189,6 +200,7 @@ namespace Abi
                 telephone = value;
             }
         }
+
         /// <summary>
         /// Accesseur de ca , qui contrôle aussi que c'est bien un décimal, sinon renvoie une exception
         /// </summary>
@@ -200,13 +212,14 @@ namespace Abi
             }
             set
             {
+                //check if the entry is a decimal, if not throw an exception
                 if (!decimal.TryParse(value.ToString(), out ca))
                     throw new Exception(value.ToString() + " : n'est pas un CA de Client Valide, il doit être un Décimal");
             }
         }
 
         /// <summary>
-        /// accesseur à effectif, qui contrôle aussi que c'est un entier
+        /// accesseur à effectif, qui contrôle aussi que c'est bien un entier
         /// </summary>
         public int Effectif
         {
@@ -223,6 +236,7 @@ namespace Abi
                     throw new Exception(value.ToString() + " : n'est pas un EFFECTIF  Valide, il doit être un nombre de moins de 10 chiffre");
             }
         }
+
         /// <summary>
         /// Accesseur a commentaire commercial, sans contrôle
         /// </summary>
@@ -274,7 +288,7 @@ namespace Abi
             }
         }
         /// <summary>
-        /// Accesseur a la Liste de Contactd'un Client
+        /// Accesseur a la Liste de Contact d'un Client
         /// </summary>
         public List<Contact> ListContacts
         {

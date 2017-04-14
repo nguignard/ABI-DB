@@ -144,11 +144,11 @@ namespace Abi
         {
             if (grdCltDsp.CurrentRow != null)
             {
-                idClient = (Int32)grdCltDsp.CurrentRow.Cells[0].Value;
+                idClient = (Int32)grdCltDsp.CurrentRow.Cells[0].Value; //get the value of the id number of the Client that is on the 0 cell of the line
             }
         }
         /// <summary>
-        /// txtCltDspNomRecherche_KeyUp: Quand on ecrit dans le txtbox Recherche, commence un tri actif
+        /// txtCltDspNomRecherche_KeyUp: Quand on ecrit dans le txtbox Recherche, commence un tri actif sur la raison sociale
         /// /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
