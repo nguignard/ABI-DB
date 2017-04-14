@@ -10,12 +10,19 @@ using System.Windows.Forms;
 
 namespace Abi
 {
+    /// <summary>
+    /// frmGrdContact : affiche la liste des contacts d'un Client donné
+    /// </summary>
     public partial class frmGrdContact : Form
     {
-        private int idContact;
-        private Client client;
-        private Contact contact;
+        private int idContact;// numero de contact
+        private Client client;// le Client auquel sont rattaché les contacts
+        private Contact contact;// le contact en cours de création ou de modification
 
+        /// <summary>
+        /// frmGrdContact: Contructeur d'un contact du client appele
+        /// </summary>
+        /// <param name="client"></param>
         public frmGrdContact(Client client)
         {
             this.client = client;
@@ -30,36 +37,34 @@ namespace Abi
 
         //BEGIN - GESTION DES BOUTONS/////////////////////////////////////::
         /// <summary>
-        /// Affiche un client individuel vide pour ajout
+        /// btnAjouter_ClickAffiche un client individuel vide pour ajout
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            contact = new Abi.Contact(client.NbrContact++);
-            frmContact frmNewContact = new frmContact(ref contact, true);
-            DialogResult result = frmNewContact.ShowDialog();
+            contact = new Contact(client.NbrContact++); // instancie un nouveau contact avec un nouvel id
+
+            frmContact frmNewContact = new frmContact(ref contact, true);// instancie la liste des contacts, avec un nouveau contact (true)
+            DialogResult result = frmNewContact.ShowDialog();// ouverture modale de la fnêtre
             if (result == DialogResult.OK || result == DialogResult.Yes)
             {
                 if (result == DialogResult.Yes)
                 {
-                    client.ListContacts.Remove(contact);
+                    client.ListContacts.Remove(contact);// on est obligé d'enlever le Client créer inutilement en cas d'annulation
                 }
-
-                if (result == DialogResult.OK)
+                if (result == DialogResult.OK) //on valide l'ajout du contact dans la collection
                 {
                     client.ListContacts.Add(contact);
                 }
-
+                //affichage de la liste des Clients
                 this.controlesVisuels();
                 this.afficheContacts();
-
             }
-
         }
 
         /// <summary>
-        /// bouton fermer: Ferme le Form de recherche de Client retourne à frmMDI
+        /// btnCltDspQuitter_Click: Ferme le Form de recherche de Client retourne à la fiche du contact
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -70,19 +75,20 @@ namespace Abi
 
 
         /// <summary>
-        /// Boutton supprimer , supprime le Client selectionne
+        /// btnCltDspSupprimer_Click: Boutton supprimer , supprime le Client selectionne
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCltDspSupprimer_Click(object sender, EventArgs e)
         {
+            //delmande de confirmation de suppression
             DialogResult rep = new DialogResult();
             rep = MessageBox.Show("Voulez vous vraiment supprimer?", "suppression", MessageBoxButtons.OKCancel);
             if (rep == DialogResult.OK)
             {
-                if (grdContact.CurrentRow != null)
+                if (grdContact.CurrentRow != null)// si la ligne selectionnees n'est pas vide (cas d'erreur)
                 {
-                    idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
+                    idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;//recherche l'idContact a supprimer
                 }
                 foreach (Contact c in client.ListContacts)
                 {
@@ -93,21 +99,16 @@ namespace Abi
                 }
                 if (contact != null)
                 {
-                    client.ListContacts.Remove(contact);
+                    client.ListContacts.Remove(contact);//suprime le contact de la liste de contact du client
                 }
+               // afficheContacts le Grid
                 this.controlesVisuels();
                 this.afficheContacts();
             }
         }
 
         /// <summary>
-        /// Doubvle Clic sur le Grid : ouvre le Client Sellectionnne
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-       
-        /// <summary>
-        /// Réaffiche la liste complete des Clients
+        /// Réaffiche la liste complete des Clients suite à l'entree de lettre dans le txtbox rechercher
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -116,17 +117,62 @@ namespace Abi
             this.txtCltDspNomRecherche.Text = null;
             afficheContacts();
         }
+
         /// <summary>
-        /// Quand on ecrit dans le txtbox Recherche, commence un tri actif
+        /// Quand on ecrit dans le txtbox Recherche, commence un tri actif par nom
         /// /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void txtCltDspNomRecherche_KeyUp(object sender, KeyEventArgs e)
         {
+            //filtre le datagrid par un nom ressemblant a l'inscription dans  txtbox de recherche
             ((DataView)(this.grdContact.DataSource)).RowFilter = "[Nom] like '%" + this.txtCltDspNomRecherche.Text + "%'";
         }
 
+        /// <summary>
+        /// grdContact_DoubleClick: permet d'ouvrir en modal une fenêtre individulle d'un contact pour modif ou suppression
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grdContact_DoubleClick(object sender, EventArgs e)
+        {
+            if (grdContact.CurrentRow != null)
+            {
+                idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;// recherche de l'Id du contact
+                //Console.WriteLine("id : " + idContact);
+            }
+            foreach (Contact c in client.ListContacts)
+            {
+                if (c.IdContact == idContact)
+                {
+                    contact = c;//affecte le client trouver dans la liste au contact sur lequel on travail 
+                }
+            }
 
+            //instancie une fiche individuelle contact en modal
+            frmContact frmContact = new frmContact(ref contact, false);
+            DialogResult result = frmContact.ShowDialog();
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                if (result == DialogResult.Yes)
+                {
+                    client.ListContacts.Remove(contact);//supprime de la liste de contact
+                }
+                //affichage de la liste contact
+                this.controlesVisuels();
+                this.afficheContacts();
+            }
+        }
+
+        private void btnRech_Click(object sender, EventArgs e)
+        {
+            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
+        }
+
+        private void txtCltDspNomRecherche_KeyUp_1(object sender, KeyEventArgs e)
+        {
+            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
+        }
 
 
 
@@ -208,45 +254,6 @@ namespace Abi
 
         }
 
-        private void grdContact_DoubleClick(object sender, EventArgs e)
-        {
-            if (grdContact.CurrentRow != null)
-            {
-                idContact = (Int32)grdContact.CurrentRow.Cells[0].Value;
-                Console.WriteLine("id : " + idContact);
-            }
-            foreach (Contact c in client.ListContacts)
-            {
-                if (c.IdContact == idContact)
-                {
-                    contact = c;
-                }
-            }
-
-
-            frmContact frmContact = new frmContact(ref contact, false);
-            DialogResult result = frmContact.ShowDialog();
-            if (result == DialogResult.OK || result == DialogResult.Yes)
-            {
-                if (result == DialogResult.Yes)
-                {
-                    client.ListContacts.Remove(contact);
-                }
-                this.controlesVisuels();
-                this.afficheContacts();
-                
-            }
-            
-        }
-
-        private void btnRech_Click(object sender, EventArgs e)
-        {
-            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
-        }
-
-        private void txtCltDspNomRecherche_KeyUp_1(object sender, KeyEventArgs e)
-        {
-            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
-        }
+        
     }
 }

@@ -11,7 +11,6 @@ namespace Abi
     /// </summary>
     public class Outils
     {
-      
         /// <summary>
         /// EstEntier permet de verifier qu'un nombre sous forme de string est bien un Int32
         /// </summary>
@@ -38,7 +37,6 @@ namespace Abi
             return IsInt;
         }
 
-
         /// <summary>
         /// EstCodePostal, si le string est un entier et = 5 chiffres renvoie true, sinon false
         /// </summary>
@@ -51,15 +49,5 @@ namespace Abi
             else
                 return false;
         }
-
-
-        //public static int FindIndex(int index)
-        //{
-        //   index
-        //}
-
-
-
-
     }
 }

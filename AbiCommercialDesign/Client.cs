@@ -24,8 +24,9 @@ namespace Abi
         private string activite;
         private string telephone;
         private string commentComm;
+
         private List<Contact> listContacts; //Contain the different Contacts of the Client
-        private Int32 nbrContact = 0;
+        private Int32 nbrContact = 0; //nombre d econtact du client
         // END ATTRIBUT
 
 

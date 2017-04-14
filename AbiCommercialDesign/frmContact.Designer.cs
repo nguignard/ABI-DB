@@ -47,9 +47,9 @@
             this.txtFonction = new System.Windows.Forms.TextBox();
             this.txtTelephone = new System.Windows.Forms.TextBox();
             this.txtActivite = new System.Windows.Forms.TextBox();
-            this.txtContact = new System.Windows.Forms.TextBox();
+            this.txtIdContact = new System.Windows.Forms.TextBox();
             this.txtProjet = new System.Windows.Forms.TextBox();
-            this.txtidClient = new System.Windows.Forms.TextBox();
+            this.txtIdClient = new System.Windows.Forms.TextBox();
             this.lblidClient = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -124,7 +124,7 @@
             // lbldContact
             // 
             this.lbldContact.AutoSize = true;
-            this.lbldContact.Location = new System.Drawing.Point(557, 50);
+            this.lbldContact.Location = new System.Drawing.Point(552, 57);
             this.lbldContact.Name = "lbldContact";
             this.lbldContact.Size = new System.Drawing.Size(99, 13);
             this.lbldContact.TabIndex = 35;
@@ -218,13 +218,14 @@
             this.txtActivite.Size = new System.Drawing.Size(115, 20);
             this.txtActivite.TabIndex = 47;
             // 
-            // txtContact
+            // txtIdContact
             // 
-            this.txtContact.Enabled = false;
-            this.txtContact.Location = new System.Drawing.Point(541, 66);
-            this.txtContact.Name = "txtContact";
-            this.txtContact.Size = new System.Drawing.Size(115, 20);
-            this.txtContact.TabIndex = 48;
+            this.txtIdContact.Enabled = false;
+            this.txtIdContact.Location = new System.Drawing.Point(541, 77);
+            this.txtIdContact.Name = "txtIdContact";
+            this.txtIdContact.ReadOnly = true;
+            this.txtIdContact.Size = new System.Drawing.Size(115, 20);
+            this.txtIdContact.TabIndex = 48;
             // 
             // txtProjet
             // 
@@ -233,14 +234,14 @@
             this.txtProjet.Size = new System.Drawing.Size(299, 20);
             this.txtProjet.TabIndex = 49;
             // 
-            // txtidClient
+            // txtIdClient
             // 
-            this.txtidClient.Enabled = false;
-            this.txtidClient.Location = new System.Drawing.Point(536, 115);
-            this.txtidClient.Name = "txtidClient";
-            this.txtidClient.ReadOnly = true;
-            this.txtidClient.Size = new System.Drawing.Size(115, 20);
-            this.txtidClient.TabIndex = 51;
+            this.txtIdClient.Enabled = false;
+            this.txtIdClient.Location = new System.Drawing.Point(541, 115);
+            this.txtIdClient.Name = "txtIdClient";
+            this.txtIdClient.ReadOnly = true;
+            this.txtIdClient.Size = new System.Drawing.Size(115, 20);
+            this.txtIdClient.TabIndex = 51;
             // 
             // lblidClient
             // 
@@ -256,10 +257,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 328);
-            this.Controls.Add(this.txtidClient);
+            this.Controls.Add(this.txtIdClient);
             this.Controls.Add(this.lblidClient);
             this.Controls.Add(this.txtProjet);
-            this.Controls.Add(this.txtContact);
+            this.Controls.Add(this.txtIdContact);
             this.Controls.Add(this.txtActivite);
             this.Controls.Add(this.txtTelephone);
             this.Controls.Add(this.txtFonction);
@@ -306,9 +307,9 @@
         private System.Windows.Forms.TextBox txtFonction;
         private System.Windows.Forms.TextBox txtTelephone;
         private System.Windows.Forms.TextBox txtActivite;
-        private System.Windows.Forms.TextBox txtContact;
+        private System.Windows.Forms.TextBox txtIdContact;
         private System.Windows.Forms.TextBox txtProjet;
-        private System.Windows.Forms.TextBox txtidClient;
+        private System.Windows.Forms.TextBox txtIdClient;
         private System.Windows.Forms.Label lblidClient;
     }
 }

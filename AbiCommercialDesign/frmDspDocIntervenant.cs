@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Abi
 {
+    /// <summary>
+    /// Class pour visualiser les documents des contacts, non implemente au 2017.04.10
+    /// </summary>
     public partial class frmDspDocIntervenant : Form
     {
         public frmDspDocIntervenant()

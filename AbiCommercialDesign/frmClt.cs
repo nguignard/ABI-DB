@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Abi
 {
     /// <summary>
-    /// frmClt: est une fenetre qui gere la creation et la modification d'un Client Particulier
+    /// frmClt: est une fenetre qui gere la creation ET la modification suppression CRUD d'un Client Particulier
     /// </summary>
     public partial class frmClt : Form
     {
@@ -22,9 +22,8 @@ namespace Abi
 
 
         //BEGIN - CONSTRUCTEURS DE CLASSE
-
         /// <summary>
-        /// Constructeur pour un nouveau Client
+        /// Constructeur pour un nouveau Client sans attributs
         /// </summary>
         public frmClt()
         {
@@ -34,7 +33,7 @@ namespace Abi
         }
 
         /// <summary>
-        /// Constructeur pour un Nouveau Client ou un Client à modifier
+        /// Constructeur pour un Nouveau Client ou un Client à modifier selon le bool isNewClient
         /// </summary>
         /// <param name="client">client est de classe Client, et est envoye comme paramettre par double clic de la fenetre frmGrdClt </param>
         public frmClt(Client client, Boolean isNewClient)
@@ -43,7 +42,7 @@ namespace Abi
             this.isNewClient = isNewClient;
             this.client = client;
             controlesVisuels();
-            afficheLeClient(client);//fonction permettant d'afficher le Client
+            afficheLeClient(client);//fonction permettant d'afficher le client
         }
         //END - CONSTRUCTEUR DE CLASSE
 
@@ -61,7 +60,9 @@ namespace Abi
         }
 
         /// <summary>
-        /// btnSupprimer_Click: Supprime le contacte de la liste des Clients si ce n'est pas un nouveau Client
+        /// btnSupprimer_Click: Apres confirmation par une MessageBox, 
+        /// Supprime le contacte de la liste des Clients si ce n'est pas un nouveau Client
+        /// gere le cas nouveau Client ou modification de client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -85,14 +86,12 @@ namespace Abi
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
              this.afficheLeClient(this.client);
-            //this.DialogResult = DialogResult.Cancel;
         }
 
 
         /// <summary>
         /// au Clic Bouton Valider:
-        /// - si c'est un nouveau Client, ajoute à la liste des Clients
-        /// - sinon, modifie le Client existant
+        ///Valide le Client en cours et le sauvegarde dans la collection dans donnees
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -102,7 +101,11 @@ namespace Abi
             this.DialogResult = DialogResult.OK; //ferme la fenetre modale
         }
 
-
+        /// <summary>
+        /// OUVre la gestion des Contacts en Modal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnContacts_Click(object sender, EventArgs e)
         {
             this.saveClient();
@@ -114,19 +117,14 @@ namespace Abi
             }
         }
 
-
-
-
-
         //END - GESTION DES BOUTONS
 
 
-        //FONCTION D'affichage DIVERS////////////////////////////////////////////////////////////////////////////////////
-
-
+        //BEGIN - FONCTION D'affichage DIVERS////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// grpStringValue renvoie le string lie au radiboutonS Actif dans la groupbox choisie
-        /// </summary>
+        /// grpStringValue renvoie le string lie  au radiboutonS Actif dans la groupbox choisie:
+        /// si on est dans le grpNature , renvoie le string du rdb qui est actif
+        ///         /// </summary>
         /// <param name="g"></param>
         /// <returns></returns>
         private string grpStringValue(GroupBox g)
@@ -136,7 +134,7 @@ namespace Abi
             if (g == this.grpNature) //si on est dans le groupbox nature, on regarde quel rdb est checked et s renvoi le string
             {
                 s = "Principal";
-                if (this.rdbSecondaire.Checked)
+                if (this.rdbSecondaire.Checked)//si le rdb secondaire est checked, renvoi "Secondaire"
                     s = "Secondaire";
                 if (this.rdbAncienne.Checked)
                     s = "Ancienne";
@@ -179,16 +177,20 @@ namespace Abi
         /// Affiche le Client en cours de modification
         /// </summary>
         private void afficheLeClient(Client c)
-
         {
             if (c != null)
             {
                 this.txtIdClient.Text = c.IdClient.ToString();
-                this.txtRaisonSociale.Text = c.RaisonSociale.ToString();
 
+                this.txtRaisonSociale.Text = c.RaisonSociale.ToString();
                 this.txtAdresse.Text = c.Adresse.ToString();
                 this.txtCP.Text = c.CP.ToString();
                 this.txtVille.Text = c.Ville.ToString();
+                this.cbxActivite.SelectedItem = c.Activite.ToString();
+                this.txtTelephone.Text = c.Telephone.ToString();
+                this.txtCA.Text = c.CA.ToString();
+                this.txtEffectif.Text = c.Effectif.ToString();
+                this.txtCommentComm.Text = c.CommentComm.ToString();
 
                 //Gestion des radioboutons
                 this.rdbAncienne.Checked = true;
@@ -205,29 +207,24 @@ namespace Abi
                 }
                 this.rdbTypeClientPublic.Checked = true;
                 if (c.Nature == "Privé") this.rdbTypeClientPrive.Checked = true;
-
-                this.cbxActivite.SelectedItem = c.Activite.ToString();
-                this.txtTelephone.Text = c.Telephone.ToString();
-                this.txtCA.Text = c.CA.ToString();
-                this.txtEffectif.Text = c.Effectif.ToString();
-                this.txtCommentComm.Text = c.CommentComm.ToString();
             }
         }
 
+        /// <summary>
+        /// saveClient: enregistre les modification utilisateur dans le client, puis dans la collection de donnee
+        /// </summary>
         private void saveClient()
         {
             // tente de rentrer ou modifier un nouveau Client, sinon renvoie une exception (venant des accesseurs)
             try
             {
-                
-
                 //Création ou modification du Client
                 if (isNewClient)
                 {
-                    client = new Client(Donnees.nbrClient++);
+                    client = new Client(Donnees.nbrClient++);//on en profite pour implémenter l'ID du Client
                     getClient();
 
-                    Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la liste statique dans données
+                    Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
                 }
                 else
                 {
@@ -239,19 +236,19 @@ namespace Abi
                             Donnees.ListeFicheClient[i] = client;
                         }
                     }
-
-         
                 }
-
             }
-            catch (Exception ex)
+            catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {
                 if (isNewClient)
                     client = null;// annule la création si l'essai n'est pas concluant
                 MessageBox.Show(ex.Message); // renvoie le message d'exception
             }
         }
-        
+
+        /// <summary>
+        /// getClient: enregistre les modification utilisateur dans le client
+        /// </summary>
         private void getClient()
         {
             this.client.RaisonSociale = this.txtRaisonSociale.Text.Trim(); //trim enleve les espaces avant et apres la chaine
@@ -267,5 +264,6 @@ namespace Abi
             this.client.TypeSociete = grpStringValue(grpTypeSociete);
         }
 
+        //END - FONCTION D'affichage DIVERS////////////////////////////////////////////////////////////////////////////////////
     }
 }
