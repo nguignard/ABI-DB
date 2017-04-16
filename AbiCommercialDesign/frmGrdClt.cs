@@ -45,9 +45,7 @@ namespace Abi
 
         //END - CONSTRUCTEURS
 
-
-
-
+            
 
         //BEGIN - GESTION DES EVENEMENTS/////////////////////////////////////::
         /// <summary>
