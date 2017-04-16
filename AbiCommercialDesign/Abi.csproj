@@ -78,12 +78,6 @@
     <Compile Include="frmDocContact.Designer.cs">
       <DependentUpon>frmDocContact.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDspDocIntervenant.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDspDocIntervenant.Designer.cs">
-      <DependentUpon>frmDspDocIntervenant.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmGrdClt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,9 +131,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDocContact.resx">
       <DependentUpon>frmDocContact.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDspDocIntervenant.resx">
-      <DependentUpon>frmDspDocIntervenant.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGrdClt.resx">
       <DependentUpon>frmGrdClt.cs</DependentUpon>
