@@ -232,7 +232,7 @@ namespace Abi
         {
             get
             {
-                return effectif;
+                return (Int32)effectif;
             }
 
             set

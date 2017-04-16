@@ -164,7 +164,7 @@
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.ImageList imageList1;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+       private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.TextBox txtClient;
         private System.Windows.Forms.Label lblClient;
