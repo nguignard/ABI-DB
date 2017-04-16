@@ -52,8 +52,15 @@ namespace Abi
         public Contact(int idContact)
         {
             this.idContact = idContact;
-        }
 
+        }
+       
+
+
+        public Contact()
+        {
+            
+        }
 
         /// <summary>
         /// Accesseur de entreprise sans contrôle

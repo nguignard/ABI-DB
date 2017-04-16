@@ -13,7 +13,7 @@ namespace Abi
     {
         //BEGIN ATTRIBUT
         private Int32 idClient;
-        private Int32 effectif;
+        private Int32? effectif;
         private decimal ca;
         private string raisonSociale;
         private string typeSociete;
@@ -27,7 +27,7 @@ namespace Abi
 
         private List<Contact> listContacts; //Contain the different Contacts of the Client
         private Int32 nbrContact = 0; //nombre d econtact du client
-        // END ATTRIBUT
+                                      // END ATTRIBUT
 
 
 
@@ -49,6 +49,12 @@ namespace Abi
         /// <param name="ca"></param>
         /// <param name="effectif"></param>
         /// <param name="commentComm"></param>
+
+
+        public Client()
+        {
+           
+        }
 
 
         /// <summary>
