@@ -120,10 +120,10 @@ namespace Abi
             }
         }
 
-        //END - GESTION DES BOUTONS
+        //END - GESTION DES EVENEMENTS
 
 
-        //BEGIN - FONCTION D'affichage DIVERS////////////////////////////////////////////////////////////////////////////////////
+        //BEGIN - FONCTION DIVERS////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// grpStringValue renvoie le string lie  au radiboutonS Actif dans la groupbox choisie:
         /// si on est dans le grpNature , renvoie le string du rdb qui est actif
@@ -218,19 +218,18 @@ namespace Abi
         /// </summary>
         private void saveClient()
         {
-            // tente de rentrer ou modifier un nouveau Client, sinon renvoie une exception (venant des accesseurs)
+            // tente d'ajouter ou modifier  Client, sinon renvoie une exception (venant des accesseurs)
             try
             {
-                //Création ou modification du Client
-                if (isNewClient)
+                if (isNewClient)//Si c'est un nouveau Client ajout à la liste des Clients
                 {
                     client = new Client(Donnees.nbrClient++);//on en profite pour implémenter l'ID du Client
                     getClient();
 
                     Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
-                    Donnees.Push();
+
                 }
-                else
+                else //si c'est un ancien Client, modifie le Client dans la liste
                 {
                     getClient();
                     for (Int32 i = 0; i < Donnees.ListeFicheClient.Count; i++)
@@ -238,11 +237,11 @@ namespace Abi
                         if (Donnees.ListeFicheClient[i].IdClient == client.IdClient)
                         {
                             Donnees.ListeFicheClient[i] = client;
-                            Donnees.Push();
+
                         }
                     }
                 }
-
+                Donnees.Push();// envoi les modifications de la liste en BD
             }
             catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {
@@ -270,6 +269,6 @@ namespace Abi
             this.client.TypeSociete = grpStringValue(grpTypeSociete);
         }
 
-        //END - FONCTION D'affichage DIVERS////////////////////////////////////////////////////////////////////////////////////
+        //END - FONCTION DIVERS////////////////////////////////////////////////////////////////////////////////////
     }
 }
