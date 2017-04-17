@@ -28,10 +28,11 @@ namespace Abi
         public frmGrdClt()
         {
             //BEGIN  - JEU DE TEST: Création de 5 Clients virtuels comme jeux de test a l'ouverture du Form
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Donnees.ListeFicheClient.Add(new Client(Donnees.nbrClient++, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
+            Donnees.Push();
             //END - JEU DE TEST
 
 
@@ -59,6 +60,7 @@ namespace Abi
 
             if (frmFicheClient.ShowDialog() == DialogResult.OK)
             {
+                Donnees.Push();
                 controlesVisuels();// enable/disable les boutons
                 afficheClients();// réaffiche la liste des Clients
             }
@@ -99,7 +101,7 @@ namespace Abi
                     }
                 }
                 Donnees.ListeFicheClient.Remove(client);//suppresssion de la liste des Clients
-
+                Donnees.Push();
                 this.controlesVisuels();// reaffiche
                 this.afficheClients();
             }
@@ -116,7 +118,7 @@ namespace Abi
             {
                 idClient = (Int32)grdCltDsp.CurrentRow.Cells[0].Value;
             }
-            foreach (Client c in Donnees.ListeFicheClient.ToList())
+            foreach (Client c in Donnees.ListeFicheClient)
             {
                 if (c.IdClient == idClient)
                 {
@@ -128,6 +130,7 @@ namespace Abi
             frmClt frmClient = new frmClt(client, false);
             if (frmClient.ShowDialog() == DialogResult.OK)
             {
+                Donnees.Push();
                 this.controlesVisuels();
                 this.afficheClients();
 
@@ -212,6 +215,8 @@ namespace Abi
         /// </summary>
         private void afficheClients()
         {
+
+            Donnees.Pull();
             DataTable dt = new DataTable();
             DataRow dr;
 

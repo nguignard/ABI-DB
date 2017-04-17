@@ -65,6 +65,12 @@
   <ItemGroup>
     <Compile Include="Contact.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="frmControle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmControle.Designer.cs">
+      <DependentUpon>frmControle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Donnees.cs" />
     <Compile Include="frmContact.cs">
       <SubType>Form</SubType>
@@ -102,30 +108,12 @@
     <Compile Include="frmClt.Designer.cs">
       <DependentUpon>frmClt.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelAbi.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAbi.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAbi.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAbi.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAbi.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAbi.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Outils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TClient.cs">
-      <DependentUpon>ModelAbi.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TContact.cs">
-      <DependentUpon>ModelAbi.tt</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="frmControle.resx">
+      <DependentUpon>frmControle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmContact.resx">
       <DependentUpon>frmContact.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,13 +142,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="ModelAbi.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelAbi.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModelAbi.edmx.diagram">
-      <DependentUpon>ModelAbi.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -174,18 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ModelAbi.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelAbi.Context.cs</LastGenOutput>
-      <DependentUpon>ModelAbi.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModelAbi.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAbi.edmx</DependentUpon>
-      <LastGenOutput>ModelAbi.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

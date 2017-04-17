@@ -73,7 +73,10 @@ namespace Abi
             if (rep == DialogResult.OK)
             {
                 if (!isNewClient)
+                {
                     Donnees.ListeFicheClient.Remove(this.client);
+                    Donnees.Push();
+                }
             }
             this.DialogResult = DialogResult.OK;
         }
@@ -85,7 +88,7 @@ namespace Abi
         /// <param name="e"></param>
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
-             this.afficheLeClient(this.client);
+            this.afficheLeClient(this.client);
         }
 
 
@@ -225,18 +228,21 @@ namespace Abi
                     getClient();
 
                     Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
+                    Donnees.Push();
                 }
                 else
                 {
                     getClient();
-                    for(Int32 i= 0; i<Donnees.ListeFicheClient.Count; i++)
+                    for (Int32 i = 0; i < Donnees.ListeFicheClient.Count; i++)
                     {
-                        if(Donnees.ListeFicheClient[i].IdClient == client.IdClient)
+                        if (Donnees.ListeFicheClient[i].IdClient == client.IdClient)
                         {
                             Donnees.ListeFicheClient[i] = client;
+                            Donnees.Push();
                         }
                     }
                 }
+
             }
             catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {
