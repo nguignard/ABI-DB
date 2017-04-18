@@ -41,19 +41,10 @@ namespace Abi
             }
 
 
-            Console.WriteLine("TC count " + Donnees.Db.TClient.ToList().Count);
-            for (int i = 0; i< 1;i++)
-            {
-                //Console.WriteLine("TCid " + Donnees.Db.TClient.ToList()[i].IdClient.ToString());
-            }
-
-            //Donnees.Db.SaveChanges();
+           
 
 
-
-
-
-            Donnees.Push();
+            //Donnees.Push();
             //END - JEU DE TEST
 
 

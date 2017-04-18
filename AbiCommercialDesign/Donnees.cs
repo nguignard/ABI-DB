@@ -84,49 +84,48 @@ namespace Abi
             tc.CommentComm = c.CommentComm;
 
             Db.TClient.Add(tc);
-
             Db.SaveChanges();
-           
-          
 
 
 
 
 
-
-            ////Recherche et detruit le Tclient si il existe,
-            ////puis rajoute le TClient à la DB
-            //for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
-            //{
-            //    Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
-
-            //    if (Db.TClient.ToList()[j].IdClient == c.IdClient)
-            //        Db.TClient.Remove(Db.TClient.ToList()[j]); 
-            //}
-            //Db.TClient.Add(tc);
-
-            //Console.WriteLine("DbClient Count " + Db.TClient.ToList().Count.ToString());
-
-            //for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
-            //{
-            //    Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
-
-            //}
+            Console.WriteLine("count " + Db.TClient.ToList().Count.ToString());
 
 
+            //Recherche et detruit le Tclient si il existe,
+            //puis rajoute le TClient à la DB
+            for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
+            {
+                Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
 
-            ////Recherche to les Contacts du TClient existant en DB et les détruits
-            //for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
-            //{
-            //    if (Db.TContact.ToList()[k].IdClient == c.IdClient)
-            //        Db.TContact.Remove(Db.TContact.ToList()[k]);
-            //}
+                if (Db.TClient.ToList()[j].IdClient == c.IdClient)
+                    Db.TClient.Remove(Db.TClient.ToList()[j]);
+            }
+            Db.TClient.Add(tc);
 
-            ////ajoute les contact Client en DB
-            //for (Int32 k = 0; k < c.ListContacts.Count; k++)
-            //{
-            //    Db.TContact.Add(convertToTContact(c.ListContacts[k]));
-            //}
+            Console.WriteLine("DbClient Count " + Db.TClient.ToList().Count.ToString());
+
+            for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
+            {
+                Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
+
+            }
+
+
+
+            //Recherche to les Contacts du TClient existant en DB et les détruits
+            for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
+            {
+                if (Db.TContact.ToList()[k].IdClient == c.IdClient)
+                    Db.TContact.Remove(Db.TContact.ToList()[k]);
+            }
+
+            //ajoute les contact Client en DB
+            for (Int32 k = 0; k < c.ListContacts.Count; k++)
+            {
+                Db.TContact.Add(convertToTContact(c.ListContacts[k]));
+            }
 
             //Db.SaveChanges();
         }
