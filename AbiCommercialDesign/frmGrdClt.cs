@@ -28,7 +28,7 @@ namespace Abi
         public frmGrdClt()
         {
             //BEGIN  - JEU DE TEST: Création de 5 Clients virtuels comme jeux de test a l'ouverture du Form
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 9; i++)
             {
                 Donnees.ListeFicheClient.Add(new Client(Donnees.nbrClient++, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }

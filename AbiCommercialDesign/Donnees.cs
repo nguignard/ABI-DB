@@ -13,7 +13,7 @@ namespace Abi
     public class Donnees
     {
         //Création de la collection de ce qui se passe dans la BASE DE DONNEE
-        public static DbAbiEntities Db = new DbAbiEntities();
+        public static DbAbiEntities1 Db = new DbAbiEntities1();
 
         //Cette Collection est le reflet de ce qui se passe dans VISUAL
         //Collection liste des Clients de la Société, static pour être accessible sans instanciation par toutes les autres classes
@@ -68,7 +68,7 @@ namespace Abi
 
             // transcrit chaque attribut
             tc.IdClient = c.IdClient;
-            // tc.nbrContact = c.nbrContact;?????????
+            tc.NbrContact = c.NbrContact;
 
             tc.Effectif = c.Effectif;
             tc.CA = c.CA;
@@ -91,12 +91,12 @@ namespace Abi
             for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
             {
                 if (Db.TClient.ToList()[j].IdClient == c.IdClient)
-                    Db.TClient.ToList().Remove(Db.TClient.ToList()[j]);
-                Db.TClient.Add(tc);
+                    Db.TClient.ToList()[j] = tc;
             }
+            Db.TClient.ToList().Add(tc);
 
-            //Recherche to les contacts du TClient existant en DB et les détruits
 
+            //Recherche to les Contacts du TClient existant en DB et les détruits
             for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
             {
                 if (Db.TContact.ToList()[k].IdClient == c.IdClient)
@@ -109,8 +109,7 @@ namespace Abi
                 Db.TContact.Add(convertToTContact(c.ListContacts[k]));
             }
 
-            //Db.TClient.SaveChanges();
-           // Db.TContact.SaveChanges();
+            Db.SaveChanges();
         }
 
         // Convertir un TClient vers un Client
@@ -122,7 +121,7 @@ namespace Abi
             Client c = new Client();
 
             c.IdClient = tc.IdClient;
-            // c.nbrContact = tc.nbrContact; A ajouter dans la base
+            c.NbrContact = tc.NbrContact;
 
             c.Effectif = (int)tc.Effectif;
             c.CA = (int)tc.CA;//??int dans la base, au lieu de decimal
@@ -145,7 +144,7 @@ namespace Abi
             {
                 if (Db.TContact.ToList()[j].IdClient == c.IdClient)
                 {
-                    c.ListContacts.Add(convertToContact( Db.TContact.ToList()[j]));
+                    c.ListContacts.Add(convertToContact(Db.TContact.ToList()[j]));
                 }
             }
             return c;
@@ -154,7 +153,7 @@ namespace Abi
         //Enregistrement liste complete en DB
         public static void Push()
         {
-            foreach(Client c in ListeFicheClient)
+            foreach (Client c in ListeFicheClient)
             {
                 convertToTClient(c);
             }

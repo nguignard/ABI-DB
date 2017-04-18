@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbAbiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TClient">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="Effectif" Type="int" />
+          <Property Name="CA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RaisonSociale" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeSociete" Type="nchar" MaxLength="50" />
+          <Property Name="Nature" Type="nchar" MaxLength="50" />
+          <Property Name="Adresse" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="CP" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ville" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activite" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telephone" Type="nchar" MaxLength="50" />
+          <Property Name="CommentComm" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="NbrContact" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TContact">
+          <Key>
+            <PropertyRef Name="IdContact" />
+          </Key>
+          <Property Name="Entreprise" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nom" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prenom" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fonction" Type="nchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nchar" MaxLength="50" />
+          <Property Name="Projet" Type="nchar" MaxLength="50" />
+          <Property Name="Activite" Type="nchar" MaxLength="50" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdContact" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'DbAbi.dbo.View_2' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="View_2">
+          <Key>
+            <PropertyRef Name="IdClient" />
+            <PropertyRef Name="RaisonSociale" />
+            <PropertyRef Name="Adresse" />
+            <PropertyRef Name="CP" />
+            <PropertyRef Name="Ville" />
+            <PropertyRef Name="Activite" />
+            <PropertyRef Name="CommentComm" />
+            <PropertyRef Name="NbrContact" />
+            <PropertyRef Name="Expr4" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="Expr6" />
+            <PropertyRef Name="Expr8" />
+            <PropertyRef Name="Expr9" />
+            <PropertyRef Name="Expr10" />
+            <PropertyRef Name="Expr11" />
+          </Key>
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="Effectif" Type="int" />
+          <Property Name="CA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RaisonSociale" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeSociete" Type="nchar" MaxLength="50" />
+          <Property Name="Nature" Type="nchar" MaxLength="50" />
+          <Property Name="Adresse" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="CP" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ville" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activite" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telephone" Type="nchar" MaxLength="50" />
+          <Property Name="CommentComm" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="NbrContact" Type="int" Nullable="false" />
+          <Property Name="Expr2" Type="int" />
+          <Property Name="Expr3" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Expr4" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr5" Type="int" Nullable="false" />
+          <Property Name="Expr6" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr7" Type="nchar" MaxLength="50" />
+          <Property Name="Expr8" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr9" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr10" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr11" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr12" Type="nchar" MaxLength="50" />
+          <Property Name="Expr13" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TContact_TClient">
+          <End Role="TClient" Type="Self.TClient" Multiplicity="1" />
+          <End Role="TContact" Type="Self.TContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClient">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="TContact">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbAbiModelStoreContainer">
+          <EntitySet Name="TClient" EntityType="Self.TClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TContact" EntityType="Self.TContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_2" EntityType="Self.View_2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_2].[IdClient] AS [IdClient], 
+    [View_2].[Effectif] AS [Effectif], 
+    [View_2].[CA] AS [CA], 
+    [View_2].[RaisonSociale] AS [RaisonSociale], 
+    [View_2].[TypeSociete] AS [TypeSociete], 
+    [View_2].[Nature] AS [Nature], 
+    [View_2].[Adresse] AS [Adresse], 
+    [View_2].[CP] AS [CP], 
+    [View_2].[Ville] AS [Ville], 
+    [View_2].[Activite] AS [Activite], 
+    [View_2].[Telephone] AS [Telephone], 
+    [View_2].[CommentComm] AS [CommentComm], 
+    [View_2].[NbrContact] AS [NbrContact], 
+    [View_2].[Expr2] AS [Expr2], 
+    [View_2].[Expr3] AS [Expr3], 
+    [View_2].[Expr4] AS [Expr4], 
+    [View_2].[Expr5] AS [Expr5], 
+    [View_2].[Expr6] AS [Expr6], 
+    [View_2].[Expr7] AS [Expr7], 
+    [View_2].[Expr8] AS [Expr8], 
+    [View_2].[Expr9] AS [Expr9], 
+    [View_2].[Expr10] AS [Expr10], 
+    [View_2].[Expr11] AS [Expr11], 
+    [View_2].[Expr12] AS [Expr12], 
+    [View_2].[Expr13] AS [Expr13]
+    FROM [dbo].[View_2] AS [View_2]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TContact_TClient" Association="Self.FK_TContact_TClient">
+            <End Role="TClient" EntitySet="TClient" />
+            <End Role="TContact" EntitySet="TContact" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbAbiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TClient">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="Effectif" Type="Int32" />
+          <Property Name="CA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RaisonSociale" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TypeSociete" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Nature" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CP" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Ville" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Activite" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="CommentComm" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="NbrContact" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TContact" Relationship="Self.FK_TContact_TClient" FromRole="TClient" ToRole="TContact" />
+        </EntityType>
+        <EntityType Name="TContact">
+          <Key>
+            <PropertyRef Name="IdContact" />
+          </Key>
+          <Property Name="Entreprise" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Fonction" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Projet" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Activite" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdContact" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TClient" Relationship="Self.FK_TContact_TClient" FromRole="TContact" ToRole="TClient" />
+        </EntityType>
+        <EntityType Name="View_2">
+          <Key>
+            <PropertyRef Name="IdClient" />
+            <PropertyRef Name="RaisonSociale" />
+            <PropertyRef Name="Adresse" />
+            <PropertyRef Name="CP" />
+            <PropertyRef Name="Ville" />
+            <PropertyRef Name="Activite" />
+            <PropertyRef Name="CommentComm" />
+            <PropertyRef Name="NbrContact" />
+            <PropertyRef Name="Expr4" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="Expr6" />
+            <PropertyRef Name="Expr8" />
+            <PropertyRef Name="Expr9" />
+            <PropertyRef Name="Expr10" />
+            <PropertyRef Name="Expr11" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="Effectif" Type="Int32" />
+          <Property Name="CA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RaisonSociale" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TypeSociete" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Nature" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CP" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Ville" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Activite" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="CommentComm" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="NbrContact" Type="Int32" Nullable="false" />
+          <Property Name="Expr2" Type="Int32" />
+          <Property Name="Expr3" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Expr4" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr5" Type="Int32" Nullable="false" />
+          <Property Name="Expr6" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr7" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Expr8" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr9" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr10" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr11" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Expr12" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Expr13" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_TContact_TClient">
+          <End Role="TClient" Type="Self.TClient" Multiplicity="1" />
+          <End Role="TContact" Type="Self.TContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClient">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="TContact">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbAbiEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TClient" EntityType="Self.TClient" />
+          <EntitySet Name="TContact" EntityType="Self.TContact" />
+          <EntitySet Name="View_2" EntityType="Self.View_2" />
+          <AssociationSet Name="FK_TContact_TClient" Association="Self.FK_TContact_TClient">
+            <End Role="TClient" EntitySet="TClient" />
+            <End Role="TContact" EntitySet="TContact" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbAbiModelStoreContainer" CdmEntityContainer="DbAbiEntities1">
+          <EntitySetMapping Name="TClient">
+            <EntityTypeMapping TypeName="DbAbiModel.TClient">
+              <MappingFragment StoreEntitySet="TClient">
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="Effectif" ColumnName="Effectif" />
+                <ScalarProperty Name="CA" ColumnName="CA" />
+                <ScalarProperty Name="RaisonSociale" ColumnName="RaisonSociale" />
+                <ScalarProperty Name="TypeSociete" ColumnName="TypeSociete" />
+                <ScalarProperty Name="Nature" ColumnName="Nature" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="Activite" ColumnName="Activite" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="CommentComm" ColumnName="CommentComm" />
+                <ScalarProperty Name="NbrContact" ColumnName="NbrContact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TContact">
+            <EntityTypeMapping TypeName="DbAbiModel.TContact">
+              <MappingFragment StoreEntitySet="TContact">
+                <ScalarProperty Name="Entreprise" ColumnName="Entreprise" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Fonction" ColumnName="Fonction" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Projet" ColumnName="Projet" />
+                <ScalarProperty Name="Activite" ColumnName="Activite" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdContact" ColumnName="IdContact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_2">
+            <EntityTypeMapping TypeName="DbAbiModel.View_2">
+              <MappingFragment StoreEntitySet="View_2">
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="Effectif" ColumnName="Effectif" />
+                <ScalarProperty Name="CA" ColumnName="CA" />
+                <ScalarProperty Name="RaisonSociale" ColumnName="RaisonSociale" />
+                <ScalarProperty Name="TypeSociete" ColumnName="TypeSociete" />
+                <ScalarProperty Name="Nature" ColumnName="Nature" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="Activite" ColumnName="Activite" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="CommentComm" ColumnName="CommentComm" />
+                <ScalarProperty Name="NbrContact" ColumnName="NbrContact" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+                <ScalarProperty Name="Expr4" ColumnName="Expr4" />
+                <ScalarProperty Name="Expr5" ColumnName="Expr5" />
+                <ScalarProperty Name="Expr6" ColumnName="Expr6" />
+                <ScalarProperty Name="Expr7" ColumnName="Expr7" />
+                <ScalarProperty Name="Expr8" ColumnName="Expr8" />
+                <ScalarProperty Name="Expr9" ColumnName="Expr9" />
+                <ScalarProperty Name="Expr10" ColumnName="Expr10" />
+                <ScalarProperty Name="Expr11" ColumnName="Expr11" />
+                <ScalarProperty Name="Expr12" ColumnName="Expr12" />
+                <ScalarProperty Name="Expr13" ColumnName="Expr13" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
