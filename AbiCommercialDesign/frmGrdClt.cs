@@ -27,11 +27,32 @@ namespace Abi
         /// </summary>
         public frmGrdClt()
         {
+
+
             //BEGIN  - JEU DE TEST: Création de 5 Clients virtuels comme jeux de test a l'ouverture du Form
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Donnees.ListeFicheClient.Add(new Client(Donnees.nbrClient++, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
+
+            foreach (Client c in Donnees.ListeFicheClient)
+            {
+                Donnees.convertToTClient(c);
+            }
+
+
+            Console.WriteLine("TC count " + Donnees.Db.TClient.ToList().Count);
+            for (int i = 0; i< 1;i++)
+            {
+                //Console.WriteLine("TCid " + Donnees.Db.TClient.ToList()[i].IdClient.ToString());
+            }
+
+            //Donnees.Db.SaveChanges();
+
+
+
+
+
             Donnees.Push();
             //END - JEU DE TEST
 
@@ -46,7 +67,7 @@ namespace Abi
 
         //END - CONSTRUCTEURS
 
-            
+
 
         //BEGIN - GESTION DES EVENEMENTS/////////////////////////////////////::
         /// <summary>

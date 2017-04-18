@@ -13,7 +13,7 @@ namespace Abi
     public class Donnees
     {
         //Création de la collection de ce qui se passe dans la BASE DE DONNEE
-        public static DbAbiEntities1 Db = new DbAbiEntities1();
+        public static DbAbiEntities Db = new DbAbiEntities();
 
         //Cette Collection est le reflet de ce qui se passe dans VISUAL
         //Collection liste des Clients de la Société, static pour être accessible sans instanciation par toutes les autres classes
@@ -22,7 +22,7 @@ namespace Abi
         public static Int32 nbrClient = 0;
 
 
-        // Convertir un TContact vers un Contact
+        // Convertir un Contact vers un TContact
 
         public static TContact convertToTContact(Contact c)
         {
@@ -69,12 +69,10 @@ namespace Abi
             // transcrit chaque attribut
             tc.IdClient = c.IdClient;
             tc.NbrContact = c.NbrContact;
-
             tc.Effectif = c.Effectif;
             tc.CA = c.CA;
-            tc.RaisonSociale = c.RaisonSociale;
-            tc.TypeSociete = c.TypeSociete;
-            tc.Nature = c.Nature;
+
+
             tc.RaisonSociale = c.RaisonSociale;
             tc.TypeSociete = c.TypeSociete;
             tc.Nature = c.Nature;
@@ -85,38 +83,58 @@ namespace Abi
             tc.Telephone = c.Telephone;
             tc.CommentComm = c.CommentComm;
 
-
-            //Recherche et detruit le Tclient si il existe,
-            //puis rajoute le TClient à la DB
-            for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
-            {
-                if (Db.TClient.ToList()[j].IdClient == c.IdClient)
-                    Db.TClient.ToList()[j] = tc;
-            }
-            Db.TClient.ToList().Add(tc);
-
-
-            //Recherche to les Contacts du TClient existant en DB et les détruits
-            for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
-            {
-                if (Db.TContact.ToList()[k].IdClient == c.IdClient)
-                    Db.TContact.Remove(Db.TContact.ToList()[k]);
-            }
-
-            //ajoute les contact Client en DB
-            for (Int32 k = 0; k < c.ListContacts.Count; k++)
-            {
-                Db.TContact.Add(convertToTContact(c.ListContacts[k]));
-            }
+            Db.TClient.Add(tc);
 
             Db.SaveChanges();
+           
+          
+
+
+
+
+
+
+            ////Recherche et detruit le Tclient si il existe,
+            ////puis rajoute le TClient à la DB
+            //for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
+            //{
+            //    Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
+
+            //    if (Db.TClient.ToList()[j].IdClient == c.IdClient)
+            //        Db.TClient.Remove(Db.TClient.ToList()[j]); 
+            //}
+            //Db.TClient.Add(tc);
+
+            //Console.WriteLine("DbClient Count " + Db.TClient.ToList().Count.ToString());
+
+            //for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
+            //{
+            //    Console.WriteLine("idClient" + Db.TClient.ToList()[j].IdClient.ToString());
+
+            //}
+
+
+
+            ////Recherche to les Contacts du TClient existant en DB et les détruits
+            //for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
+            //{
+            //    if (Db.TContact.ToList()[k].IdClient == c.IdClient)
+            //        Db.TContact.Remove(Db.TContact.ToList()[k]);
+            //}
+
+            ////ajoute les contact Client en DB
+            //for (Int32 k = 0; k < c.ListContacts.Count; k++)
+            //{
+            //    Db.TContact.Add(convertToTContact(c.ListContacts[k]));
+            //}
+
+            //Db.SaveChanges();
         }
 
         // Convertir un TClient vers un Client
         public static Client convertToClient(TClient tc)
         {
-            //Db.TClient.SaveChanges();
-            //Db.TContact.SaveChanges();
+            //Db.SaveChanges();
 
             Client c = new Client();
 
@@ -142,6 +160,7 @@ namespace Abi
 
             for (Int32 j = 0; j < Db.TContact.ToList().Count; j++)
             {
+                Console.WriteLine(Db.TContact.ToList()[j].IdClient.ToString());
                 if (Db.TContact.ToList()[j].IdClient == c.IdClient)
                 {
                     c.ListContacts.Add(convertToContact(Db.TContact.ToList()[j]));

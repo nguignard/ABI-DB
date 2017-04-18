@@ -54,12 +54,12 @@ namespace Abi
             this.idContact = idContact;
 
         }
-       
+
 
 
         public Contact()
         {
-            
+
         }
 
         /// <summary>
@@ -74,7 +74,9 @@ namespace Abi
 
             set
             {
-                entreprise = value;
+
+                if (value != null) entreprise = value;
+                else throw new Exception(value.ToString() + " : Le Nom de l'entreprise est Vide!");
             }
         }
         /// <summary>

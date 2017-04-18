@@ -14,7 +14,7 @@ namespace Abi
         //BEGIN ATTRIBUT
         private Int32 idClient;
         private Int32? effectif;
-        private decimal ca;
+        private int ca;
         private string raisonSociale;
         private string typeSociete;
         private string nature;
@@ -80,7 +80,7 @@ namespace Abi
         /// <param name="activite"></param>
         /// <param name="telephone"></param>
         /// <param name="commentComm"></param>
-        public Client(int idClient, int effectif, decimal ca, string raisonSociale, string typeSociete, string nature, string adresse, string cp, string ville, string activite, string telephone, string commentComm)
+        public Client(int idClient, int effectif, int ca, string raisonSociale, string typeSociete, string nature, string adresse, string cp, string ville, string activite, string telephone, string commentComm)
         {
             this.IdClient = idClient;
             this.Effectif = effectif;
@@ -211,7 +211,7 @@ namespace Abi
         /// <summary>
         /// Accesseur de ca , qui contrôle aussi que c'est bien un décimal, sinon renvoie une exception
         /// </summary>
-        public decimal CA
+        public int CA
         {
             get
             {
@@ -220,7 +220,7 @@ namespace Abi
             set
             {
                 //check if the entry is a decimal, if not throw an exception
-                if (!decimal.TryParse(value.ToString(), out ca))
+                if (!int.TryParse(value.ToString(), out ca))
                     throw new Exception(value.ToString() + " : n'est pas un CA de Client Valide, il doit être un Décimal");
             }
         }

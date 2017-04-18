@@ -13,10 +13,10 @@ namespace Abi
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DbAbiEntities1 : DbContext
+    public partial class DbAbiEntities : DbContext
     {
-        public DbAbiEntities1()
-            : base("name=DbAbiEntities1")
+        public DbAbiEntities()
+            : base("name=DbAbiEntities")
         {
         }
     
@@ -27,6 +27,5 @@ namespace Abi
     
         public virtual DbSet<TClient> TClient { get; set; }
         public virtual DbSet<TContact> TContact { get; set; }
-       
     }
 }

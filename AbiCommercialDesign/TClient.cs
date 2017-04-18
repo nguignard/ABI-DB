@@ -22,7 +22,7 @@ namespace Abi
     
         public int IdClient { get; set; }
         public Nullable<int> Effectif { get; set; }
-        public Nullable<decimal> CA { get; set; }
+        public Nullable<int> CA { get; set; }
         public string RaisonSociale { get; set; }
         public string TypeSociete { get; set; }
         public string Nature { get; set; }

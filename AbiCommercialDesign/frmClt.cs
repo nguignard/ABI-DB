@@ -227,7 +227,7 @@ namespace Abi
                     getClient();
 
                     Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
-
+                    
                 }
                 else //si c'est un ancien Client, modifie le Client dans la liste
                 {
@@ -262,7 +262,7 @@ namespace Abi
             this.client.Ville = this.txtVille.Text.Trim().ToUpper();//ToUpper met en majuscule
             this.client.CP = this.txtCP.Text.Trim();
             this.client.Telephone = this.txtTelephone.Text.Trim();
-            this.client.CA = decimal.Parse(this.txtCA.Text.Trim());
+            this.client.CA = int.Parse(this.txtCA.Text.Trim());
             this.client.Effectif = Int32.Parse(this.txtEffectif.Text.Trim());
             this.client.CommentComm = this.txtCommentComm.Text.Trim();
             this.client.Nature = grpStringValue(grpNature);//grpStringValue renvoie le string lie au rdb Actif du grpBox
