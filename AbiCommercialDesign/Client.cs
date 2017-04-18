@@ -125,7 +125,7 @@ namespace Abi
 
             set
             {
-                raisonSociale = value.Trim().ToUpper(); //Put away spaces before and after the string and 'met en majuscule'
+                raisonSociale = value; //Put away spaces before and after the string and 'met en majuscule'
             }
         }
 

@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
 namespace Abi
 {
-    using System;
-    using System.Collections.Generic;
+    
     
     public partial class TClient
     {

@@ -74,9 +74,7 @@ namespace Abi
 
             set
             {
-
-                if (value != null) entreprise = value;
-                else throw new Exception(value.ToString() + " : Le Nom de l'entreprise est Vide!");
+                entreprise = value;
             }
         }
         /// <summary>
