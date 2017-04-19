@@ -30,11 +30,11 @@ namespace Abi
 
 
             //BEGIN  - JEU DE TEST: Création de 5 Clients virtuels comme jeux de test a l'ouverture du Form
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Donnees.ListeFicheClient.Add(new Client(i, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
-                                    
+
             Donnees.Push();
             //END - JEU DE TEST
 
@@ -63,7 +63,6 @@ namespace Abi
 
             if (frmFicheClient.ShowDialog() == DialogResult.OK)
             {
-                
                 controlesVisuels();// enable/disable les boutons
                 afficheClients();// réaffiche la liste des Clients
             }
@@ -220,7 +219,7 @@ namespace Abi
         {
             Donnees.Pull();
 
-            Console.Write("affiche" + Donnees.ListeFicheClient.Count.ToString());
+           
 
             DataTable dt = new DataTable();
             DataRow dr;
@@ -232,7 +231,7 @@ namespace Abi
             dt.Columns.Add(new DataColumn("CA", typeof(int)));
             dt.Columns.Add(new DataColumn("Nature", typeof(String)));
 
-            for (int i = 0; i < Donnees.Db.TClient.ToList().Count; i++)//remplissage d'une Datarow
+            for (int i = 0; i < Donnees.ListeFicheClient.Count; i++)//remplissage d'une Datarow
             {
                 dr = dt.NewRow();
                 dr[0] = Donnees.ListeFicheClient[i].IdClient;

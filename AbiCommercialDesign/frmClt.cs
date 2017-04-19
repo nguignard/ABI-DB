@@ -227,13 +227,11 @@ namespace Abi
             {
                 if (isNewClient)//Si c'est un nouveau Client ajout à la liste des Clients
                 {
-
-
-                    client = new Client(Donnees.nbrClient++);//on en profite pour implémenter l'ID du Client
+                    client = new Client(++Donnees.nbrClient);//on en profite pour implémenter l'ID du Client
                     getClient();
 
                     Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
-
+                    Donnees.Push();// envoi les modifications de la liste en BD
                 }
                 else //si c'est un ancien Client, modifie le Client dans la liste
                 {
@@ -243,11 +241,11 @@ namespace Abi
                         if (Donnees.ListeFicheClient[i].IdClient == client.IdClient)
                         {
                             Donnees.ListeFicheClient[i] = client;
-
+                            Donnees.Push();// envoi les modifications de la liste en BD
                         }
                     }
                 }
-                Donnees.Push();// envoi les modifications de la liste en BD
+               
             }
             catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {

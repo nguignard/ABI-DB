@@ -66,14 +66,13 @@ namespace Abi
         // Convertir un Client vers un TClient
         public static TClient convertToTClient(Client c)
         {
-            TClient tc = new Abi.TClient();
+            TClient tc = new TClient();
 
             // transcrit chaque attribut
             tc.IdClient = c.IdClient;
             tc.NbrContact = c.NbrContact;
             tc.Effectif = c.Effectif;
             tc.CA = c.CA;
-
 
             tc.RaisonSociale = c.RaisonSociale;
             tc.TypeSociete = c.TypeSociete;
@@ -86,41 +85,12 @@ namespace Abi
             tc.CommentComm = c.CommentComm;
 
             return tc;
-
-            ////Recherche le Tclient, si il existe supprime tous ces contact et le client
-            //for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
-            //{
-            //    if (Db.TClient.ToList()[j].IdClient == c.IdClient)
-            //    {
-            //        for (Int32 k = 0; k < Db.TContact.ToList().Count; k++)
-            //        {
-            //            if (Db.TContact.ToList()[k].IdClient == c.IdClient)
-            //                Db.TContact.Remove(Db.TContact.ToList()[k]);
-            //        }
-
-            //        Db.TClient.Remove(Db.TClient.ToList()[j]);
-            //    }
-            //}
-
-            ////ajoute les contact Client en DB
-            //for (Int32 k = 0; k < c.ListContacts.Count; k++)
-            //{
-            //    Contact contact = c.ListContacts[k];
-            //    TContact tContact = convertToTContact(contact);
-
-            //    Db.TContact.Add(tContact);
-            //}
-
-            ////Aajoute le TClient à la DB
-            //Db.TClient.Add(tc);
-
-            //Db.SaveChanges();
         }
 
         // Convertir un TClient vers un Client
         public static Client convertToClient(TClient tc)
         {
-            //Db.SaveChanges();
+           
 
             Client c = new Client();
 
@@ -141,19 +111,10 @@ namespace Abi
             c.Activite = tc.Activite;
             c.Telephone = tc.Telephone;
             c.CommentComm = tc.CommentComm;
+            c.ListContacts = new List<Contact>();
 
             return c;
 
-            //c.ListContacts = new List<Contact>();
-
-            //for (Int32 j = 0; j < Db.TContact.ToList().Count; j++)
-            //{
-            //    Console.WriteLine(Db.TContact.ToList()[j].IdClient.ToString());
-            //    if (Db.TContact.ToList()[j].IdClient == c.IdClient)
-            //    {
-            //        c.ListContacts.Add(convertToContact(Db.TContact.ToList()[j]));
-            //    }
-            //}
 
         }
 
@@ -175,46 +136,48 @@ namespace Abi
             }
             Db.SaveChanges();
 
-                foreach (Client clt in ListeFicheClient)
+            foreach (Client clt in ListeFicheClient)
             {
                 tClient = convertToTClient(clt);
-                Db.TClient.Add(tClient);
+              
 
-                foreach (Contact ct in clt.ListContacts)
+                Db.TClient.Add(tClient);
+                Console.WriteLine("tclient.count" + Db.TClient.ToList().Count);
+
+                Db.SaveChanges();
+
+                if (clt.ListContacts != null)
                 {
-                    tContact = convertToTContact(ct);
-                    Db.TContact.Add(tContact);
+                    foreach (Contact ct in clt.ListContacts)
+                    {
+                        tContact = convertToTContact(ct);
+                        Db.TContact.Add(tContact);
+                        Db.SaveChanges();
+                    }
                 }
             }
-            Console.WriteLine("dbCount clt" + Db.TClient.ToList().Count.ToString());
-            Console.WriteLine("dbCount con" + Db.TContact.ToList().Count.ToString());
-            Db.SaveChanges();
+          
+          
         }
 
         //DownLoad liste complete de la DB
         public static void Pull()
         {
-           
             Contact contact;
             Client client;
 
-            Db.SaveChanges();
-
-            for (Int32 j = 0; j < ListeFicheClient.Count; j++)
-            {
-                client = ListeFicheClient[j];
-                ListeFicheClient.Remove(client);
-            }
+            ListeFicheClient.Clear();
 
             foreach (TClient tclt in Db.TClient.ToList())
             {
                 client = convertToClient(tclt);
-               
+
+   
 
                 foreach (TContact tc in Db.TContact.ToList())
                 {
                     contact = convertToContact(tc);
-                  
+
                     if (contact.IdClient == client.IdClient)
                     {
                         client.ListContacts.Add(contact);
@@ -222,9 +185,20 @@ namespace Abi
                 }
                 ListeFicheClient.Add(client);
 
-                Console.WriteLine("ListeFicheClient cont" + ListeFicheClient.Count.ToString());      }
+            }
 
-           
+
+            //reccuperation du plus grand idClient en DB
+            int i = 0;
+            foreach (Client c in Donnees.ListeFicheClient)
+            {
+                if (c.IdClient > i)
+                {
+                    i = c.IdClient;
+                }
+            }
+            nbrClient = i;
+            Console.WriteLine("nBRE cLIENT+ " + nbrClient);
 
 
 
