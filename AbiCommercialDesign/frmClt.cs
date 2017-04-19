@@ -118,18 +118,8 @@ namespace Abi
             {
                 if (!isNewClient)
                 {
-                    for (int i = 0; i < Donnees.Db.TContact.ToList().Count; i++)
-                    {
-                        tContact = Donnees.Db.TContact.ToList()[i];
-                        if (tContact.IdClient == client.IdClient)
-                        {
-                            Donnees.Db.TContact.ToList().Remove(tContact);
-                        }
-                    }
-
-                    Donnees.Db.TClient.Remove(Donnees.convertToTClient(this.client));
-                    //Donnees.ListeFicheClient.Remove(this.client);
-                    //Donnees.Push();
+                    Donnees.ListeFicheClient.Remove(this.client);
+                    Donnees.Push();
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -237,8 +227,6 @@ namespace Abi
             {
                 if (isNewClient)//Si c'est un nouveau Client ajout à la liste des Clients
                 {
-
-
 
 
                     client = new Client(Donnees.nbrClient++);//on en profite pour implémenter l'ID du Client

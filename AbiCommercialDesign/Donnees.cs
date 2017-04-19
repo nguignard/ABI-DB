@@ -15,7 +15,7 @@ namespace Abi
     {
         //Création de la collection de ce qui se passe dans la BASE DE DONNEE
         public static DbAbiEntities Db = new DbAbiEntities();
-        
+
 
         //Cette Collection est le reflet de ce qui se passe dans VISUAL
         //Collection liste des Clients de la Société, static pour être accessible sans instanciation par toutes les autres classes
@@ -157,43 +157,78 @@ namespace Abi
 
         }
 
-        ////Enregistrement liste complete en DB
-        //public static void Push()
-        //{
-        //    for (Int32 j = 0; j < Db.TContact.ToList().Count; j++)
-        //    {
-        //        Db.TContact.Remove(Db.TContact.ToList()[j]);
-        //    }
-        //    for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
-        //    {
-        //        Db.TClient.Remove(Db.TClient.ToList()[j]);
-        //    }
-            
-        //    foreach (Client Client in ListeFicheClient)
-        //    {
-        //        convertToTClient(Client);
-        //        foreach (Contact contact in Client.ListContacts)
-        //        {
-        //            Client.ListContacts.Add(contact);
-        //        }
-        //    }
-        //}
+        //Enregistrement liste complete en DB
+        public static void Push()
+        {
+            TContact tContact;
+            TClient tClient;
 
-        ////DownLoad liste complete de la DB
-        //public static void Pull()
-        //{
+            for (Int32 j = 0; j < Db.TContact.ToList().Count; j++)
+            {
+                tContact = Db.TContact.ToList()[j];
+                Db.TContact.Remove(tContact);
+            }
+            for (Int32 j = 0; j < Db.TClient.ToList().Count; j++)
+            {
+                tClient = Db.TClient.ToList()[j];
+                Db.TClient.Remove(tClient);
+            }
+            Db.SaveChanges();
 
-        //    for (Int32 j = 0; j < ListeFicheClient.Count; j++)
-        //    {
-        //        Db.TClient.Remove(Db.TClient.ToList()[j]);
-        //    }
+                foreach (Client clt in ListeFicheClient)
+            {
+                tClient = convertToTClient(clt);
+                Db.TClient.Add(tClient);
+
+                foreach (Contact ct in clt.ListContacts)
+                {
+                    tContact = convertToTContact(ct);
+                    Db.TContact.Add(tContact);
+                }
+            }
+            Console.WriteLine("dbCount clt" + Db.TClient.ToList().Count.ToString());
+            Console.WriteLine("dbCount con" + Db.TContact.ToList().Count.ToString());
+            Db.SaveChanges();
+        }
+
+        //DownLoad liste complete de la DB
+        public static void Pull()
+        {
+           
+            Contact contact;
+            Client client;
+
+            Db.SaveChanges();
+
+            for (Int32 j = 0; j < ListeFicheClient.Count; j++)
+            {
+                client = ListeFicheClient[j];
+                ListeFicheClient.Remove(client);
+            }
+
+            foreach (TClient tclt in Db.TClient.ToList())
+            {
+                client = convertToClient(tclt);
+               
+
+                foreach (TContact tc in Db.TContact.ToList())
+                {
+                    contact = convertToContact(tc);
+                  
+                    if (contact.IdClient == client.IdClient)
+                    {
+                        client.ListContacts.Add(contact);
+                    }
+                }
+                ListeFicheClient.Add(client);
+
+                Console.WriteLine("ListeFicheClient cont" + ListeFicheClient.Count.ToString());      }
+
+           
 
 
 
-        //    foreach (TClient tc in Db.TClient.ToList())
-        //    {
-        //        convertToClient(tc);
-        //    }
-        //}
+
+        }
     }
 }

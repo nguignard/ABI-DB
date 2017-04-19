@@ -34,17 +34,8 @@ namespace Abi
             {
                 Donnees.ListeFicheClient.Add(new Client(i, 20 * i, 30 * i, "SARL" + i.ToString(), "Public", "Ancienne", "Adrese" + i.ToString(), "0680" + i.ToString(), "ville" + i.ToString(), "Agro", "0606060" + i.ToString(), i.ToString()));
             }
-
-            foreach (Client c in Donnees.ListeFicheClient)
-            {
-                Donnees.convertToTClient(c);
-            }
-
-
-           
-
-
-            //Donnees.Push();
+                                    
+            Donnees.Push();
             //END - JEU DE TEST
 
 
@@ -227,8 +218,10 @@ namespace Abi
         /// </summary>
         private void afficheClients()
         {
+            Donnees.Pull();
 
-           
+            Console.Write("affiche" + Donnees.ListeFicheClient.Count.ToString());
+
             DataTable dt = new DataTable();
             DataRow dr;
 
@@ -242,11 +235,11 @@ namespace Abi
             for (int i = 0; i < Donnees.Db.TClient.ToList().Count; i++)//remplissage d'une Datarow
             {
                 dr = dt.NewRow();
-                dr[0] = Donnees.Db.TClient.ToList()[i].IdClient;
-                dr[1] = Donnees.Db.TClient.ToList()[i].RaisonSociale;
-                dr[2] = Donnees.Db.TClient.ToList()[i].Telephone;
-                dr[3] = Donnees.Db.TClient.ToList()[i].CA;
-                dr[4] = Donnees.Db.TClient.ToList()[i].Nature;
+                dr[0] = Donnees.ListeFicheClient[i].IdClient;
+                dr[1] = Donnees.ListeFicheClient[i].RaisonSociale;
+                dr[2] = Donnees.ListeFicheClient[i].Telephone;
+                dr[3] = Donnees.ListeFicheClient[i].CA;
+                dr[4] = Donnees.ListeFicheClient[i].Nature;
                 dt.Rows.Add(dr); //ajout a la collection des lignes
             }
 
