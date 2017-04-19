@@ -14,7 +14,7 @@ namespace Abi
     public class Donnees
     {
         //Création de la collection de ce qui se passe dans la BASE DE DONNEE
-        public static DbAbiEntities Db = new DbAbiEntities();
+        public static DbAbiEntities10 Db = new DbAbiEntities10();
 
 
         //Cette Collection est le reflet de ce qui se passe dans VISUAL
@@ -30,37 +30,37 @@ namespace Abi
         {
             TContact tc = new TContact();
 
-            c.IdClient = tc.IdClient;
-            c.IdContact = tc.IdContact;
+            tc.IdClient = c.IdClient;
+            tc.IdContact = c.IdContact;
 
-            c.Entreprise = tc.Entreprise;
-            c.Nom = tc.Nom;
-            c.Prenom = tc.Prenom;
-            c.Fonction = tc.Fonction;
-            c.Telephone = tc.Telephone;
-            c.Projet = tc.Projet;
-            c.Activite = tc.Activite;
+            tc.Entreprise = c.Entreprise;
+            tc.Nom = c.Nom;
+            tc.Prenom = c.Prenom;
+            tc.Fonction = c.Fonction;
+            tc.Telephone = c.Telephone;
+            tc.Projet = c.Projet;
+            tc.Activite = c.Activite;
 
             return tc;
         }
 
         // Convertir un TContact vers un Contact
-        public static Contact convertToContact(TContact c)
+        public static Contact convertToContact(TContact tc)
         {
-            Contact tc = new Contact();
+            Contact c = new Contact();
 
-            c.IdClient = tc.IdClient;
-            c.IdContact = tc.IdContact;
+            tc.IdClient = c.IdClient;
+            tc.IdContact = c.IdContact;
 
-            c.Entreprise = tc.Entreprise;
-            c.Nom = tc.Nom;
-            c.Prenom = tc.Prenom;
-            c.Fonction = tc.Fonction;
-            c.Telephone = tc.Telephone;
-            c.Projet = tc.Projet;
-            c.Activite = tc.Activite;
+            tc.Entreprise = c.Entreprise;
+            tc.Nom = c.Nom;
+            tc.Prenom = c.Prenom;
+            tc.Fonction = c.Fonction;
+            tc.Telephone = c.Telephone;
+            tc.Projet = c.Projet;
+            tc.Activite = c.Activite;
 
-            return tc;
+            return c;
         }
 
         // Convertir un Client vers un TClient

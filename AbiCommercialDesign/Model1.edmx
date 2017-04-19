@@ -108,7 +108,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DbAbiEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DbAbiEntities10" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TClient" EntityType="Self.TClient" />
           <EntitySet Name="TContact" EntityType="Self.TContact" />
           <AssociationSet Name="FK_TContact_TClient" Association="Self.FK_TContact_TClient">
@@ -121,7 +121,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DbAbiModelStoreContainer" CdmEntityContainer="DbAbiEntities">
+        <EntityContainerMapping StorageEntityContainer="DbAbiModelStoreContainer" CdmEntityContainer="DbAbiEntities10">
           <EntitySetMapping Name="TClient">
             <EntityTypeMapping TypeName="DbAbiModel.TClient">
               <MappingFragment StoreEntitySet="TClient">

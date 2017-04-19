@@ -16,8 +16,6 @@ namespace Abi
     public partial class frmClt : Form
     {
         private Client client; // attribut de classe
-        private TClient tClient;
-        private TContact tContact;
         private Boolean isNewClient;// vrai si le client est nouveau, permet d'ajouter un nouveau client a la liste dans donnees,
                                     //ou de remplacer le Client actuel à modifier
                                     //private Client clientVide = new Client(0, 0, 0, "", "", "", "", "00000", "", "", "", "");

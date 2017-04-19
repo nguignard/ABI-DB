@@ -43,7 +43,7 @@ namespace Abi
         /// <param name="e"></param>
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            contact = new Contact(client.NbrContact++); // instancie un nouveau contact avec un nouvel id
+            contact = new Contact(++client.NbrContact); // instancie un nouveau contact avec un nouvel id
 
             frmContact frmNewContact = new frmContact(ref contact, true);// instancie la liste des contacts, avec un nouveau contact (true)
             DialogResult result = frmNewContact.ShowDialog();// ouverture modale de la fnêtre
@@ -52,6 +52,7 @@ namespace Abi
                 if (result == DialogResult.Yes)
                 {
                     client.ListContacts.Remove(contact);// on est obligé d'enlever le Client créer inutilement en cas d'annulation
+                    client.NbrContact--;
                 }
                 if (result == DialogResult.OK) //on valide l'ajout du contact dans la collection
                 {
@@ -100,6 +101,7 @@ namespace Abi
                 if (contact != null)
                 {
                     client.ListContacts.Remove(contact);//suprime le contact de la liste de contact du client
+                    client.NbrContact--;
                 }
                // afficheContacts le Grid
                 this.controlesVisuels();
@@ -164,26 +166,16 @@ namespace Abi
             }
         }
 
-        private void btnRech_Click(object sender, EventArgs e)
-        {
-            ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
-        }
-
+       /// <summary>
+       /// cherche un contact parmi la liste contact
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void txtCltDspNomRecherche_KeyUp_1(object sender, KeyEventArgs e)
         {
             ((DataView)grdContact.DataSource).RowFilter = "Nom like '%" + txtCltDspNomRecherche.Text + "%'";
         }
-
-
-
-
         //END - GESTION DES BOUTONS/////////////////////////////////////::
-
-
-
-
-
-
 
 
 

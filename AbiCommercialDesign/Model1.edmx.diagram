@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8b6cad8325794718b5687a73fa67ee61" Name="Diagram1">
+      <Diagram DiagramId="a5f1f4d348c042ef83ad74ac59b06260" Name="Diagram1">
         <EntityTypeShape EntityType="DbAbiModel.TClient" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DbAbiModel.TContact" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="DbAbiModel.FK_TContact_TClient" ManuallyRouted="false" />

@@ -122,7 +122,6 @@
             this.btnRech.TabIndex = 16;
             this.btnRech.Text = "Rechercher";
             this.btnRech.UseVisualStyleBackColor = true;
-            this.btnRech.Click += new System.EventHandler(this.btnRech_Click);
             // 
             // frmGrdContact
             // 

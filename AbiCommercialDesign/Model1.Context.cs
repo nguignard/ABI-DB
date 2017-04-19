@@ -13,10 +13,10 @@ namespace Abi
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DbAbiEntities : DbContext
+    public partial class DbAbiEntities10 : DbContext
     {
-        public DbAbiEntities()
-            : base("name=DbAbiEntities")
+        public DbAbiEntities10()
+            : base("name=DbAbiEntities10")
         {
         }
     
