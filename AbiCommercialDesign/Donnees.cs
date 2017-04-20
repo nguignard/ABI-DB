@@ -24,6 +24,8 @@ namespace Abi
         public static Int32 nbrClient = 0;
 
 
+
+
         // Convertir un Contact vers un TContact
 
         public static TContact convertToTContact(Contact c)
@@ -168,7 +170,7 @@ namespace Abi
         //    {
         //        Db.TClient.Remove(Db.TClient.ToList()[j]);
         //    }
-            
+
         //    foreach (Client Client in ListeFicheClient)
         //    {
         //        convertToTClient(Client);
@@ -179,21 +181,26 @@ namespace Abi
         //    }
         //}
 
-        ////DownLoad liste complete de la DB
-        //public static void Pull()
-        //{
+        //DownLoad liste complete de la DB
+        public static void Pull()
+        {
 
-        //    for (Int32 j = 0; j < ListeFicheClient.Count; j++)
-        //    {
-        //        Db.TClient.Remove(Db.TClient.ToList()[j]);
-        //    }
+            for (Int32 j = 0; j < ListeFicheClient.Count; j++)
+            {
+                ListeFicheClient.Remove(ListeFicheClient[j]);
+            }
+            foreach (TClient tc in Db.TClient.ToList())
+            {
+                
+                foreach(TContact tct in Db.TContact.ToList())
+                {
 
 
 
-        //    foreach (TClient tc in Db.TClient.ToList())
-        //    {
-        //        convertToClient(tc);
-        //    }
-        //}
+
+                }
+
+            }
+        }
     }
-}
+    }
