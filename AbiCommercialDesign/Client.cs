@@ -53,7 +53,7 @@ namespace Abi
 
         public Client()
         {
-           
+            this.ListContacts = new List<Contact>();
         }
 
 
@@ -63,6 +63,7 @@ namespace Abi
         public Client(int idClient)
         {
             this.idClient = idClient;
+            this.ListContacts = new List<Contact>();
         }
 
         /// <summary>
@@ -110,7 +111,10 @@ namespace Abi
             {
                 return idClient;
             }
-            set { idClient= value; }
+            set
+            {
+                idClient = value;
+            }
         }
 
         /// <summary>
@@ -172,7 +176,7 @@ namespace Abi
 
             set
             {
-                adresse = value.ToLower().Trim();
+                adresse = value;
             }
         }
 
@@ -219,7 +223,7 @@ namespace Abi
             }
             set
             {
-                //check if the entry is a decimal, if not throw an exception
+                //check if the entry is a int, if not throw an exception
                 if (!int.TryParse(value.ToString(), out ca))
                     throw new Exception(value.ToString() + " : n'est pas un CA de Client Valide, il doit être un Décimal");
             }
@@ -237,10 +241,10 @@ namespace Abi
 
             set
             {
-                if (Outils.EstEntier(value.ToString()))
-                    effectif = value;
-                else
-                    throw new Exception(value.ToString() + " : n'est pas un EFFECTIF  Valide, il doit être un nombre de moins de 10 chiffre");
+                //if (Outils.EstEntier(value.ToString()))
+               effectif= Convert.ToInt32(value);
+                //else
+                //    throw new Exception(value.ToString() + " : n'est pas un EFFECTIF  Valide, il doit être un nombre de moins de 10 chiffre");
             }
         }
 
@@ -272,10 +276,10 @@ namespace Abi
 
             set
             {
-                if(Outils.EstCodePostal(value.ToString()))
+                //if(Outils.EstCodePostal(value.ToString()))
                 cp = value;
-                else
-                    throw new Exception(value.ToString() + " : n'est pas un CODE POSTAL valide, il doit être un nombre de 5 chiffres");
+               // else
+                //    throw new Exception(value.ToString() + " : n'est pas un CODE POSTAL valide, il doit être un nombre de 5 chiffres");
 
             }
         }
@@ -291,7 +295,7 @@ namespace Abi
 
             set
             {
-                ville = value.ToString().ToUpper();
+                ville = value;
             }
         }
         /// <summary>

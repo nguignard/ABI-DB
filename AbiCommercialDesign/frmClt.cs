@@ -16,8 +16,6 @@ namespace Abi
     public partial class frmClt : Form
     {
         private Client client; // attribut de classe
-        private TClient tClient;
-        private TContact tContact;
         private Boolean isNewClient;// vrai si le client est nouveau, permet d'ajouter un nouveau client a la liste dans donnees,
                                     //ou de remplacer le Client actuel à modifier
                                     //private Client clientVide = new Client(0, 0, 0, "", "", "", "", "00000", "", "", "", "");
@@ -118,18 +116,8 @@ namespace Abi
             {
                 if (!isNewClient)
                 {
-                    for (int i = 0; i < Donnees.Db.TContact.ToList().Count; i++)
-                    {
-                        tContact = Donnees.Db.TContact.ToList()[i];
-                        if (tContact.IdClient == client.IdClient)
-                        {
-                            Donnees.Db.TContact.ToList().Remove(tContact);
-                        }
-                    }
-
-                    Donnees.Db.TClient.Remove(Donnees.convertToTClient(this.client));
-                    //Donnees.ListeFicheClient.Remove(this.client);
-                    //Donnees.Push();
+                    Donnees.ListeFicheClient.Remove(this.client);
+                    Donnees.Push();
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -237,15 +225,11 @@ namespace Abi
             {
                 if (isNewClient)//Si c'est un nouveau Client ajout à la liste des Clients
                 {
-
-
-
-
-                    client = new Client(Donnees.nbrClient++);//on en profite pour implémenter l'ID du Client
+                    client = new Client(++Donnees.nbrClient);//on en profite pour implémenter l'ID du Client
                     getClient();
 
                     Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
-
+                    Donnees.Push();// envoi les modifications de la liste en BD
                 }
                 else //si c'est un ancien Client, modifie le Client dans la liste
                 {
@@ -255,11 +239,11 @@ namespace Abi
                         if (Donnees.ListeFicheClient[i].IdClient == client.IdClient)
                         {
                             Donnees.ListeFicheClient[i] = client;
-
+                            Donnees.Push();// envoi les modifications de la liste en BD
                         }
                     }
                 }
-                Donnees.Push();// envoi les modifications de la liste en BD
+               
             }
             catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {
