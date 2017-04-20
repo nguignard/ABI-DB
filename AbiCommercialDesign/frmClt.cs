@@ -116,8 +116,16 @@ namespace Abi
             {
                 if (!isNewClient)
                 {
-                    Donnees.ListeFicheClient.Remove(this.client);
-                    Donnees.Push();
+                    foreach (TContact tc in Donnees.Db.TContact.ToList())
+                    {
+                        if (tc.IdClient == this.client.IdClient)
+                        {
+                            Donnees.Db.TContact.Remove(tc);
+                        }
+                    }
+
+                    Donnees.Db.TClient.Remove(Donnees.convertToTClient(this.client));
+                    Donnees.Db.SaveChanges();
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -225,25 +233,25 @@ namespace Abi
             {
                 if (isNewClient)//Si c'est un nouveau Client ajout à la liste des Clients
                 {
-                    client = new Client(++Donnees.nbrClient);//on en profite pour implémenter l'ID du Client
+                    client = new Client(Outils.nbrClient() + 1);//on en profite pour implémenter l'ID du Client
                     getClient();
 
-                    Donnees.ListeFicheClient.Add(client); //Ajoute le nouveau Client à la Collection statique dans données
-                    Donnees.Push();// envoi les modifications de la liste en BD
+                    Donnees.Db.TClient.Add(Donnees.convertToTClient(this.client)); //Ajoute le nouveau Client à la Collection statique dans données
+                    Donnees.Db.SaveChanges();// envoi les modifications de la liste en BD
                 }
                 else //si c'est un ancien Client, modifie le Client dans la liste
                 {
                     getClient();
-                    for (Int32 i = 0; i < Donnees.ListeFicheClient.Count; i++)
+                    for (Int32 i = 0; i < Donnees.Db.TClient.ToList().Count; i++)
                     {
-                        if (Donnees.ListeFicheClient[i].IdClient == client.IdClient)
+                        if (Donnees.Db.TClient.ToList()[i].IdClient == client.IdClient)
                         {
-                            Donnees.ListeFicheClient[i] = client;
-                            Donnees.Push();// envoi les modifications de la liste en BD
+                            Donnees.Db.TClient.ToList()[i] = Donnees.convertToTClient(client);
+                            Donnees.Db.SaveChanges();// envoi les modifications de la liste en BD
                         }
                     }
                 }
-               
+
             }
             catch (Exception ex) // si il y a une erreur dans la création du Client, generation d'une exception pour alerte MessageBox
             {

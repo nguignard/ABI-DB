@@ -49,5 +49,28 @@ namespace Abi
             else
                 return false;
         }
+
+
+        public static Int32 nbrClient()
+        {
+            int i = 0;
+            foreach (TClient tc in Db.TClient.ToList()
+            {
+                if (i > tc.IdClient)
+                { tc.IdClient = i; }
+            }
+            return i;
+        }
+
+        public static Int32 nbrContact()
+        {
+            int i = 0;
+            foreach (TContact tc in Db.TContact.ToList()
+              {
+                if (i > tc.IdClient)
+                { tc.IdClient = i; }
+            }
+            return i;
+        }
     }
 }
